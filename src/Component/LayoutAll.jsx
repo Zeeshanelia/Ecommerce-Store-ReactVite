@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
+import Category from './Category';
 
 
 
-const LayoutAll = ({ children }) => {
+const LayoutAll = ({ children ,Category}) => {
 
     const Location = useLocation()
 
@@ -109,9 +110,18 @@ const LayoutAll = ({ children }) => {
                 </div>
             </div>
         </footer>
-
-
-
+    {/* rendring a stuff with prop category data */}
+        <div className='md:p-16 p-8'>
+                <div className='md:w-10/12 mx-auto grid md:grid-cols-3 lg:grid-cols-4 md:gap-16  gap-8'>
+                    {Category.map((item, index) => (
+                        <div key={index} className='hover:bg-orange-600 hover:text-white border rounded-lg bg-white shadow-lg flex flex-col p-8 justify-center items-center'>
+                            <i className="ri-menu-search-line  text-2xl md:text-3xl lg:text-4xl"></i>
+                            <h1>test</h1>
+                            <h1 className='text-xl font-semibold'>{item.title}</h1>
+                        </div>
+                    ))}
+                </div>
+            </div>
     </>)
 }
 
