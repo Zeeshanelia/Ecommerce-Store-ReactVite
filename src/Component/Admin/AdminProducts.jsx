@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Layout from './Layout'
 
-const Products = () => {
+const AdminProducts = () => {
     const [Products, setProducts] = useState([
         {
             Title: 'trouser',
@@ -116,4 +116,4 @@ const Products = () => {
         </>
     )
 }
-export default Products
+export default AdminProducts

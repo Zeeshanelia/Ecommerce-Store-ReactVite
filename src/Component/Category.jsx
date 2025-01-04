@@ -31,7 +31,8 @@ const Category = () => {
 
     console.log(category)
     return (
-        <LayoutAll>
+        <LayoutAll> 
+            
             <div className='md:p-16 p-8'>
                 <div className='md:w-10/12 mx-auto grid md:grid-cols-4 md:gap-16 gap-8'>
                     {category.map((item, index) => (

@@ -1,11 +1,12 @@
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 
 
 const LayoutAll = ({ children }) => {
-
-    const Location = useLocation()
+    const [open, setOpen] = useState(false)
+    const navigat = useNavigate()
+   
 
     const Menus = [
         {
@@ -34,8 +35,10 @@ const LayoutAll = ({ children }) => {
 
     ]
 
-   
-
+    const moblieLink = (href) => {
+        setOpen(false)
+        navigat(href)
+    }
     return (<>
         <nav className="bg-slate-400 p-2 shadow-lg sticky top-0 break-words" >
 
@@ -45,11 +48,15 @@ const LayoutAll = ({ children }) => {
                     <h2 className="text-md "> Shoping Club </h2>
                 </button>
 
+                {/* For Mobile Nav Button */}
+                <button className="md:hidden"
+                    onClick={() => setOpen(!open)} >
+                    <i className="ri-menu-search-line text-3xl"></i>
+                </button>
 
 
 
-
-                <div className=" flex  gap-5   ">
+                <div className=" md:flex hidden gap-5   ">
                     {
                         Menus.map((item, index) => (
                             <Link key={index} to={item.Link} className=" px-2 py-2 text-white p-4 hover:bg-rose-800 hover:text-white justify-end " >  {item.label}
@@ -61,11 +68,10 @@ const LayoutAll = ({ children }) => {
             </div>
         </nav>
 
-        
+        <div> {children}</div>
 
-
-        <footer className="bg-orange-200 h-64">
-            <div className="w-10/12 mx-auto px-5 grid grid-cols-4 gap-3 ">
+        <footer className="bg-orange-200  md:h-64">
+            <div className="md:w-10/12 mx-auto px-5 grid md:grid-cols-4 md:gap-3 ">
                 <div>
                     <h1 className="text-2xl m-3 mt-4"> Product Detail </h1>
                     <p className="text-md mb-3"> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quaerat, cumque aliquam, possimus non ut s! </p>
@@ -109,9 +115,21 @@ const LayoutAll = ({ children }) => {
                 </div>
             </div>
         </footer>
+        {
+            // open &&
+            <aside className="overflow-hidden bg-slate-700 md:hidden h-96 z-50 fixed top-0 left-0 w-[110px]" style={{
+                width: (open ? 110 : 0), transition: "0.4s"
+            }}> <div className="flex flex-col gap-1 py-24 gap-3  text-white"> {
+                Menus.map((item, index) => (
+                    <button onClick={() => moblieLink(item.Link)} className="text-white" key={index}>
+                        {item.label}
+                    </button>
+                ))
+            }
+                </div>
+            </aside>
 
-
-
+        }
     </>)
 }
 
