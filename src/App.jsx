@@ -1,31 +1,35 @@
 import 'remixicon/fonts/remixicon.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import './App.css'
-import Order from "./Component/Admin/Order"
-import NotFound from './Component/Notfound'
-import AdminProducts from './Component/Admin/AdminProducts'
-import Category from './Component/Category'
+import 'animate.css';
 import ProductList from './Component/ProductList'
+import Home from './Component/Home'
+import NotFound from './Component/Notfound'
+import Category from './Component/Category'
+import LayoutAll from './Component/LayoutAll'
+import SignUp from './Component/SingUp'
+import Login from './Component/Login'
+import ContactUs from './Component/ContactUs';
+import Admin from './Component/Admin'
+import Order from "./Component/Admin/Order"
+import AdminProducts from './Component/Admin/AdminProducts'
 import Dashboard from './Component/Admin/Dashboard'
 import Settings from './Component/Admin/Settings'
 import Payment from './Component/Admin/Payment'
 import Customer from './Component/Admin/Customer'
-import Admin from './Component/Admin'
-import Home from './Component/Home'
-import LayoutAll from './Component/LayoutAll'
-import SingUp from './Component/SingUp'
-import Login from './Component/Login'
 function App() {
 
   return (<>
     <BrowserRouter>
       <Routes>
-        <Route path='/LayoutAll' element={ <LayoutAll/>} />
-        <Route path='/signup' element={ <SingUp />} />
-        <Route path='/login' element={ <Login />} />
-        <Route path='/category' element={<Category />} />
-      <Route path='/products' element={<ProductList />} />
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home/>}/>
+        <Route path='/layoutall' element={<LayoutAll/>}/>
+        <Route path='/contact-us' element={< ContactUs/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/category' element={<Category/>}/>
+        <Route path='/products' element={<ProductList/>}/>
+
         <Route path='/admin' >
           <Route path='customer' element={<Customer />} />
           <Route path='products' element={<AdminProducts />} />

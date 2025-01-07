@@ -91,9 +91,9 @@ const ProductList = ({ children }) => {
                 className="text-center text-3xl font-semibold"> All Items</h1>
             <p className="md:w-7/12 mx-auto  text-center  mt-2 mb-8"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus vero beatae explicabo? Maiores minima id eum, ut possimus consequatur laudantium explicabo quae! Omnis soluta iure aut facilis! minima id eum, ut possimus consequatur Excepturi, quam sunt?
             </p>
-            <div className="w-10/12 mx-auto   text-center md:grid grid-cols-5 md:gap-4  ">
+            <div className="md:w-10/12   mx-auto  text-center grid md:grid-cols-5  gap-6 ">
                 {Products.map((items, index) => (
-                    <div key={index} className="rounded  shadow-lg "> <img className="rounded md:w-full   shadow-lg md:h-64 mx-auto  w-60 h-60" src={items.Thumbnail} />
+                    <div key={index} className="rounded  shadow-lg "> <img className="rounded md:w-full   shadow-lg md:h-64 mx-auto  w-56 h-60" src={items.Thumbnail} />
                         <span className="text-xl text-center"> {items.title} </span>
                         <div className="space-x-2">
                             <label className="font-bold text-bold"> Rs.{items.price - (items.price * items.discount) / 100} </label>

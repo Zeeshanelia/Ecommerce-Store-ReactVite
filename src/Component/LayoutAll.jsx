@@ -1,12 +1,26 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import appConfig from "../util/firebase-config";
 
 
 const LayoutAll = ({ children }) => {
+    const auth = getAuth(appConfig);
     const [open, setOpen] = useState(false)
     const navigat = useNavigate()
-   
+    const [session, setSession] = useState(null)
+
+useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setSession(user)
+        } else {
+            setSession(null)
+        }
+    });
+      // Cleanup subscription on unmount
+      
+}, [])
 
     const Menus = [
         {
@@ -26,12 +40,9 @@ const LayoutAll = ({ children }) => {
         },
         {
             label: 'Contact Us',
-            Link: '/admin/auth'
+            Link: '/contact-us'
         },
-        {
-            label: 'Login',
-            Link: '/admin/auth'
-        },
+
 
     ]
 
@@ -62,8 +73,18 @@ const LayoutAll = ({ children }) => {
                             <Link key={index} to={item.Link} className=" px-2 py-2 text-white p-4 hover:bg-rose-800 hover:text-white justify-end " >  {item.label}
                             </Link>
                         ))}
-                    <Link className="bg-blue-500 px-6 py-2 hover:bg-rose-800 hover:text-white  items-center font-semibold rounded ">
-                        Sign Up </Link>
+
+
+                    {
+
+                        !session &&
+                        <>
+                            <Link to={"/login"} className="bg-pink-500 hover:bg-rose-800 px-6 py-2  items-center font-semibold rounded ">
+                                Login </Link>
+                            
+                            <Link to={"/signup"} className="bg-blue-500 px-6 py-2 hover:bg-rose-800 hover:text-white  items-center font-semibold rounded ">
+                                Sign Up </Link>
+                    </>}
                 </div>
             </div>
         </nav>
