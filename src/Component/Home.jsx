@@ -33,12 +33,9 @@ const Home = ({ children }) => {
         },
         {
             label: 'Contact Us',
-            Link: '/admin/auth'
+            Link: '/contact-us'
         },
-        {
-            label: 'Login',
-            Link: '/login'
-        },
+       
 
     ]
 
@@ -187,8 +184,6 @@ const Home = ({ children }) => {
                             <Link key={index} to={item.Link} className=" px-2 py-2 text-white p-4 hover:bg-rose-800 hover:text-white justify-end " >  {item.label}
                             </Link>
                         ))}
-                    <Link to={"/signup"} className="bg-blue-500 px-6 py-2 hover:bg-rose-800 hover:text-white  items-center font-semibold rounded ">
-                        Sign Up </Link>
                 </div>
             </div>
         </nav>

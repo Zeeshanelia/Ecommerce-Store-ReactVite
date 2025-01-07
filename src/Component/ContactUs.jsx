@@ -1,16 +1,16 @@
 import React from "react";
-import Layout from "./Admin/Layout";
 import LayoutAll from "./LayoutAll";
 
 const ContactUs = () => {
 
     return <>
 <LayoutAll>
-        <header className="w-6/12 mx-auto md:my-16">
-            <img src="/img/signUP 5.jpg" className=" md:w-3/4 w-3/3 items-center  " />
+        <header className="  w-12/12  shadow-lg  md:my-16">
+            <img src="/img/Contact pic.jpg" className=" py-4 md:w-3/4 w-12/12 mx-auto " />
         </header>
-        <div className="p-5 md:w-6/12 md:mx-auto ">
-            <form className="mt-4   space-y-6" >
+        
+        <div className="mb-5 md:w-7/12 md:mx-auto ">
+            <form className="mt-0   space-y-4" >
 
                 <div className="flex flex-col  " >
                     <label className="font-semibold  mb-2"> You Name</label>
@@ -32,7 +32,7 @@ const ContactUs = () => {
                 </div>
 
 
-                <button className="py-3 px-8 w-full rounded bg-blue-600 text-white font-semibold hover:bg-rose-600"> Sign Up</button>
+                <button className="py-2 px-4 w-full rounded bg-blue-600 text-white font-semibold hover:bg-rose-600"> Sign Up</button>
             </form>
 
         </div>
