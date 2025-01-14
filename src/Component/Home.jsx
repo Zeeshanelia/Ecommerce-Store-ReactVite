@@ -184,6 +184,7 @@ const Home = ({ children }) => {
                             <Link key={index} to={item.Link} className=" px-2 py-2 text-white p-4 hover:bg-rose-800 hover:text-white justify-end " >  {item.label}
                             </Link>
                         ))}
+                        
                 </div>
             </div>
         </nav>
@@ -219,7 +220,7 @@ const Home = ({ children }) => {
                             <label className="text-gray-500"> {items.discount}% off </label>
                         </div>
                         <button className="bg-green-400 rounded md:w-full  w-60 font-semibold"> Buy it</button>
-                        <button className="bg-pink-400 rounded md:w-full  w-60 font-semibold mt-1"> <i class="ri-shopping-cart-fill"></i> Add to Cart</button>
+                        <button className="bg-pink-400 rounded md:w-full  w-60 font-semibold mt-1"> <i className="ri-shopping-cart-fill"></i> Add to Cart</button>
                     </div>
 
                 ))}

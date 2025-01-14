@@ -17,6 +17,9 @@ import Dashboard from './Component/Admin/Dashboard'
 import Settings from './Component/Admin/Settings'
 import Payment from './Component/Admin/Payment'
 import Customer from './Component/Admin/Customer'
+import PreSignLog from './Component/SignLog/PreSignLog';
+import Profile from './Component/Profile';
+import Cart from './Component/Cart';
 function App() {
 
   return (<>
@@ -25,10 +28,15 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/layoutall' element={<LayoutAll/>}/>
         <Route path='/contact-us' element={< ContactUs/>}/>
-        <Route path='/signup' element={<SignUp/>}/>
-        <Route path='/login' element={<Login/>}/>
         <Route path='/category' element={<Category/>}/>
         <Route path='/products' element={<ProductList/>}/>
+        <Route path='/cart' element={<Cart/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+
+        <Route element={<PreSignLog />} >
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+        </Route>
 
         <Route path='/admin' >
           <Route path='customer' element={<Customer />} />
