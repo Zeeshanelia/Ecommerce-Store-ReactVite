@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LayoutAll from "./LayoutAll";
 import { Link, useNavigate } from "react-router-dom";
 import appConfig from "../util/firebase-config";
-import { getAuth, createUserWithEmailAndPassword , updateProfile} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const auth = getAuth(appConfig);
 
@@ -23,9 +23,8 @@ const SignUp = () => {
         setError(null); // Reset error state
         setLoader(true); // Start loading
         try {
-            const userCredential =await createUserWithEmailAndPassword( auth, signUp.email, signUp.password
-            );
-            updateProfile(auth.currentUser , {displayName:signUp.fullname})
+            const userCredential = await createUserWithEmailAndPassword(auth, signUp.email, signUp.password);
+            updateProfile(auth.currentUser, { displayName: signUp.fullname });
             // Handle successful signup
             if (userCredential.user) {
                 navigate('/'); // Redirect to home page
@@ -60,15 +59,14 @@ const SignUp = () => {
 
     return (
         <LayoutAll>
-            <div className="grid md:grid-cols-2 md:h-screen mr-16 lg:left-0 justify-center animate__animated animate__pulse">
-                <img src="/img/sign-up.jpg" className="w-3/4 mt-4 h-90 items-center ml-20" alt="Sign Up" />
+            <div className="grid grid-cols-1 md:grid-cols-2 md:h-screen justify-center items-center mx-4 lg:mx-16">
+                <img src="/img/sign-up.jpg" className="w-full h-auto max-w-md mx-auto mb-8 md:mb-0" alt="Sign Up" />
 
+                <div className="flex flex-col md:mt-8 mb-1 sm:items-center">
+                    <h1 className="font-bold text-2xl md:text-3xl">New User</h1>
+                    <p className="text-gray-500 text-center md:text-left">Create Id & Start Shopping</p>
 
-                <div className="flex flex-col md:mt-8 mb-1 sm:items-center ml-16">
-                    <h1 className="font-bold text-xl">New User</h1>
-                    <p className="text-gray-500">Create Id & Start Shopping</p>
-
-                    <form className="mt-8 space-y-2 mr-16" onSubmit={handleSignUp}>
+                    <form className="mt-8 space-y-4" onSubmit={handleSignUp}>
                         <div className="flex flex-col">
                             <label className="font-semibold mb-1">Full Name</label>
                             <input
@@ -78,7 +76,7 @@ const SignUp = () => {
                                 name="fullname"
                                 value={signUp.fullname}
                                 placeholder="Enter your full name"
-                                className="p-2 border border-gray-300 md:w-96 w-64 rounded"
+                                className="p-2 border border-gray-300 w-full md:w-96 rounded"
                             />
                         </div>
 
@@ -91,11 +89,11 @@ const SignUp = () => {
                                 name="email"
                                 value={signUp.email}
                                 placeholder="Enter your email"
-                                className="p-2 border border-gray-300 md:w-full w-64 rounded"
+                                className="p-2 border border-gray-300 w-full md:w-96 rounded"
                             />
                         </div>
 
-                        <div className="flex flex-col relative overflow-hidden">
+                        <div className="flex flex-col relative">
                             <label className="font-semibold mb-2">Password</label>
                             <input
                                 onChange={handleChange}
@@ -104,25 +102,21 @@ const SignUp = () => {
                                 name="password"
                                 value={signUp.password}
                                 placeholder="********"
-                                className="p-2 border border-gray-300 md:w-full w-64 rounded"
+                                className="p-2 border border-gray-300 w-full md:w-96 rounded"
                             />
                             <button
                                 type="button"
                                 onClick={() => setPasswordType(prev => prev === "password" ? "text" : "password")}
-                                className="absolute bottom-2 md:left-80 left-36 md:w-6 rounded-full hover:bg-blue-300"
+                                className="absolute bottom-2 right-4 md:right-8 text-xl text-gray-600"
                             >
-                                {passwordType === "password" ?
-                                    <i className="ri-eye-line"></i> :
-                                    <i className="ri-eye-off-line"></i>
-                                }
+                                {passwordType === "password" ? <i className="ri-eye-line"></i> : <i className="ri-eye-off-line"></i>}
                             </button>
                         </div>
 
                         <button
                             type="submit"
                             disabled={loader}
-                            className={`w-full p-2 rounded font-semibold ${loader ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'
-                                } text-white`}
+                            className={`w-full p-2 rounded font-semibold ${loader ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'} text-white`}
                         >
                             {loader ? 'Creating Account...' : 'Sign Up'}
                         </button>
