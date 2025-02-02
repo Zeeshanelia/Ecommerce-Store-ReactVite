@@ -52,7 +52,7 @@ const Login = () => {
                                 required
                                 name="email"
                                 placeholder="Enter your email"
-                                className="p-3 border border-gray-300 rounded w-full md:w-96"
+                                className="p-3 border border-gray-300 rounded w-full md:w-70"
                             />
                         </div>
 
@@ -65,7 +65,7 @@ const Login = () => {
                                 required
                                 name="password"
                                 placeholder="********"
-                                className="p-3 border border-gray-300 rounded w-full md:w-96"
+                                className="p-3 border border-gray-300 rounded w-full md:w-70"
                             />
 
                             <button
@@ -73,7 +73,7 @@ const Login = () => {
                                 onClick={() => setPasswordType(passwordType === "password" ? 'text' : "password")}
                                 className="absolute top-11 right-4 w-8 h-8 rounded-full hover:bg-blue-200 hover:text-blue-600"
                             >
-                                {passwordType === "password" ? <i className="ri-eye-line"></i> : <i className="ri-eye-off-line"></i>}
+                                { passwordType === "password" ? <i className="ri-eye-line"></i> : <i className="ri-eye-off-line"></i>  }
                             </button>
                         </div>
 
