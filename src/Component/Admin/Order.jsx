@@ -53,6 +53,7 @@ const Order = () => {
         DateShipment: '101024',
         StatusOrder: 'Pening',
     },
+   
     {
         OrderId: '#!12345',
         CustomerName: 'Nadeem Danish',
@@ -73,56 +74,7 @@ const Order = () => {
         DateShipment: '101024',
         StatusOrder: 'Pening',
     },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    }
+    
 ])
     return (
         <>

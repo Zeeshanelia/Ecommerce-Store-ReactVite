@@ -22,4 +22,5 @@ Vite:
 Mock Data:
     Includes sample product data to showcase the functionality (can be replaced with real backend integration).
 
-
+react-apexcharts:
+Using ApexCharts to create charts in React.js 

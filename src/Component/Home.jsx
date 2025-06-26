@@ -1,19 +1,93 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+import { getFirestore, addDoc, collection } from "firebase/firestore";
+import firebaseAppConfig from "../util/firebase-config";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Swal from 'sweetalert2';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 // import Swiper core and required modules
-import { Navigation, Pagination, Thumbs } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import LayoutAll from "./LayoutAll";
 
 
 const Home = ({ children }) => {
     const [open, setOpen] = useState(false)
     const navigat = useNavigate()
     const Location = useLocation()
+    const db = getFirestore(firebaseAppConfig)
+    const auth = getAuth(firebaseAppConfig)
+    const [session, setSession] = useState(null)
+    const [updateLayoutAllUi, setUpdateLayoutAllUi] = useState(false)
+    const [loading, setLoading] = useState(true)
+
+
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setSession(user)
+            }
+            else {
+                setSession(null)
+            }
+        })
+    }, [])
+
+
+    const addToCart = async (product) => {
+        try {
+            setLoading(true);
+            if (!session) {
+                throw new Error("You must be logged in to add items to the cart.");
+            }
+            product.userId = session.uid; // Add userId to the product
+            product.id = Date.now().toString(); // Generate a unique ID for the product 
+            await addDoc(collection(db, "cart"), product);
+            setUpdateLayoutAllUi(!updateLayoutAllUi);
+            // Check if the product already exists in the cart
+            // const cartQuery = collection(db, "cart");
+            // const existingCartItems = await cartQuery.get();
+            // const existingProduct = existingCartItems.docs.find(doc => doc.data().title === product.title && doc.data().userId === session.uid);
+            // if (existingProduct) {
+            //     throw new Error("This product is already in your cart.");
+            // }   
+            // // Add the product to the cart
+            // product.id = Date.now().toString(); // Generate a unique ID for the product
+
+
+            // Update the cart count
+            // Assuming you have a way to get the current cart count, you can update it here
+            // setCartCount(cartCount + 1); // Update cart count
+            // setLoading(false);
+            // Use Swal.fire() for the success message
+            // Use Swal constructor for the success message
+
+            new Swal({
+                title: "Product Added",
+                text: "Product added to cart successfully",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+
+        } catch (error) {
+            console.error("Error adding product to cart: ", error);
+            // Use Swal.fire() for the error message
+            new Swal({
+                title: "Error",
+                text: error.message,
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    }
+
+
+
 
     const Menus = [
         {
@@ -35,7 +109,7 @@ const Home = ({ children }) => {
             label: 'Contact Us',
             Link: '/contact-us'
         },
-       
+
 
     ]
 
@@ -162,72 +236,58 @@ const Home = ({ children }) => {
     }
 
     return (<>
-        <nav className="bg-slate-400 p-2 shadow-lg sticky top-0 break-words" >
 
-            <div className=" flex justify-between gap-1 mr-10 items-center">
-                <button className=" flex items-center gap-2  ml-9 ">
-                    <img src="/img/shopping.png" className=" w-14 items-center" />
-                    <h2 className="text-md "> Shoping Club </h2>
-                </button>
-
-                {/* For Mobile Nav Button */}
-                <button className="md:hidden"
-                    onClick={() => setOpen(!open)} >
-                    <i className="ri-menu-search-line text-3xl"></i>
-                </button>
+        <LayoutAll updateLayoutAllUi={updateLayoutAllUi}>
 
 
 
-                <div className=" md:flex hidden gap-5   ">
-                    {
-                        Menus.map((item, index) => (
-                            <Link key={index} to={item.Link} className=" px-2 py-2 text-white p-4 hover:bg-rose-800 hover:text-white justify-end " >  {item.label}
-                            </Link>
-                        ))}
-                        
-                </div>
-            </div>
-        </nav>
 
 
-        <Swiper
-            modules={[Navigation, Pagination]}
-            className=" md:w-full"
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-        >
-            <SwiperSlide><img className="md:h-[14.5rem] h-32" src="/img/swiper3.webp" /></SwiperSlide>
-            <SwiperSlide><img className="md:h-[14.5rem] h-32" src="/img/swiper5.webp" /></SwiperSlide>
-            <SwiperSlide><img className="md:h-[14.5rem] h-32" src="/img/swiper1.webp" /></SwiperSlide>
-            <SwiperSlide><img className="md:h-[14.5rem] h-32" src="/img/swiper2.webp" /></SwiperSlide>
 
-        </Swiper>
+            <Swiper
+                modules={[Navigation, Pagination]}
+                className=" md:w-full"
+                slidesPerView={1}
+                navigation
+                pagination={{ clickable: true }}
+            >
+                <SwiperSlide><img className="md:h-[14.5rem] h-32"
+                    src="/img/swiper3.webp" /></SwiperSlide>
+                <SwiperSlide><img className="md:h-[14.5rem] h-32"
+                    src="/img/swiper5.webp" /></SwiperSlide>
+                <SwiperSlide><img className="md:h-[14.5rem] h-32"
+                    src="/img/swiper1.webp" /></SwiperSlide>
+                <SwiperSlide><img className="md:h-[14.5rem] h-32"
+                    src="/img/swiper2.webp" /></SwiperSlide>
+
+            </Swiper>
 
 
-        <div className="p-10">
-            <h1
-                className="text-center text-3xl font-semibold"> Latest Items</h1>
-            <p className="w-7/12 mx-auto  text-center  mt-2 mb-8"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus vero beatae explicabo? Maiores minima id eum, ut possimus consequatur laudantium explicabo quae! Omnis soluta iure aut facilis! minima id eum, ut possimus consequatur Excepturi, quam sunt?
-            </p>
-            <div className="md:w-10/12   mx-auto  text-center grid md:grid-cols-5  gap-6 ">
-                {Products.map((items, index) => (
-                    <div key={index} className="rounded  shadow-lg "> <img className="rounded md:w-full   shadow-lg md:h-64 mx-auto  w-56 h-60" src={items.Thumbnail} />
-                        <span className="text-xl text-center"> {items.title} </span>
-                        <div className="space-x-2">
-                            <label className="font-bold text-bold"> Rs.{items.price - (items.price * items.discount) / 100} </label>
-                            <del className="  text-red-400"> Rs.{items.price} </del>
-                            <label className="text-gray-500"> {items.discount}% off </label>
+            <div className="p-10">
+                <h1
+                    className="text-center text-3xl font-semibold"> Latest Items</h1>
+                <p className="w-7/12 mx-auto  text-center  mt-2 mb-8"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus vero beatae explicabo? Maiores minima id eum, ut possimus consequatur laudantium explicabo quae! Omnis soluta iure aut facilis! minima id eum, ut possimus consequatur Excepturi, quam sunt?
+                </p>
+                <div className="md:w-10/12   mx-auto  text-center grid md:grid-cols-5  gap-6 ">
+                    {Products.map((items, index) => (
+                        <div key={index} className="rounded  shadow-lg "> <img className="rounded md:w-full   shadow-lg md:h-64 mx-auto  w-56 h-60" src={items.Thumbnail} />
+                            <span className="text-xl text-center"> {items.title} </span>
+                            <div className="space-x-2">
+                                <label className="font-bold text-bold"> Rs.{items.price - (items.price * items.discount) / 100} </label>
+                                <del className="  text-red-400"> Rs.{items.price} </del>
+                                <label className="text-gray-500"> {items.discount}% off </label>
+                            </div>
+                            <button className="bg-green-400 rounded md:w-full  w-60 font-semibold"> Buy it</button>
+
+                            <button onClick={() => addToCart(items)} className="bg-pink-400 rounded md:w-full  w-60 font-semibold mt-1"> <i className="ri-shopping-cart-fill"></i> Add to Cart</button>
                         </div>
-                        <button className="bg-green-400 rounded md:w-full  w-60 font-semibold"> Buy it</button>
-                        <button className="bg-pink-400 rounded md:w-full  w-60 font-semibold mt-1"> <i className="ri-shopping-cart-fill"></i> Add to Cart</button>
-                    </div>
 
-                ))}
+                    ))}
+                </div>
+
             </div>
 
-        </div>
-
+        </LayoutAll>
 
         <footer className="bg-orange-200  md:h-64">
             <div className="md:w-10/12 mx-auto px-5 grid md:grid-cols-4 md:gap-3 ">
@@ -274,6 +334,7 @@ const Home = ({ children }) => {
                 </div>
             </div>
         </footer>
+
         {
             // open &&
             <aside className="overflow-hidden bg-slate-700 md:hidden h-96 z-50 fixed top-0 left-0 w-[110px]" style={{
@@ -287,11 +348,6 @@ const Home = ({ children }) => {
             }
                 </div>
             </aside>
-
-
-        }
-
-    </>)
+        }  </>)
 }
-
 export default Home

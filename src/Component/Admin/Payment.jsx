@@ -27,22 +27,8 @@ const Payment = () => {
         DateShipment: '21-12-2024',
         Ammount: 20500
     },
-    {
-
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        DateShipment: '21-12-2024',
-        Ammount: 20500
-    },
-    {
-
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        DateShipment: '21-12-2024',
-        Ammount: 20500
-    },
+   
+  
 
     ])
     return (
