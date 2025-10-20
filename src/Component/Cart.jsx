@@ -20,7 +20,7 @@ const Cart = () => {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //  Track current user
+  // 1  Track current user
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setSession(user || null);
@@ -28,7 +28,7 @@ const Cart = () => {
     return () => unsubscribe();
   }, []);
 
-  //  Fetch user's cart items
+  //  2 Fetch user's cart items
   const fetchCartItems = async (userId) => {
     if (!userId) {
       setProducts([]);
@@ -54,13 +54,13 @@ const Cart = () => {
     }
   };
 
-  //  Refetch when user logs in/out
+  // 3 Refetch when user logs in/out
   useEffect(() => {
     if (session?.uid) fetchCartItems(session.uid);
     else setProducts([]);
   }, [session]);
 
-  //  Delete product from Firestore
+  //  4 Delete product from Firestore
   const handleRemove = async (firestoreId) => {
     if (!firestoreId) {
       alert("Missing Firestore document ID.");
@@ -82,7 +82,7 @@ const Cart = () => {
     }
   };
 
-  //  Total calculation
+  // 5 Total calculation
   const totalAmount = products.reduce((sum, item) => {
     const price = parseFloat(item.price) || 0;
     const discount = parseFloat(item.discount) || 0;
