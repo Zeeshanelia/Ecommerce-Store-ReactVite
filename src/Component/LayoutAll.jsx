@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-<<<<<<< HEAD
 import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
-import appConfig from "../util/firebase-config"; //  default import works now
-
-=======
 import appConfig from "../util/firebase-config";
-import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
+
 const db = getFirestore(appConfig);
 const auth = getAuth(appConfig);
 
@@ -20,49 +15,29 @@ const LayoutAll = ({ children, updateLayoutAllUi }) => {
   const [cartCount, setCartCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  // Check authentication state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setSession(user);
-      } else {
-        setSession(null);
-      }
+      setSession(user || null);
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
-<<<<<<< HEAD
-=======
-  // useEffect(() => {
-  //   if (updateLayoutAllU) {
-  //     // Perform any necessary updates when the layout changes
-  //   }
-  // }, [updateLayoutAllU]);
-
-
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
+  // Fetch cart count when session updates
   useEffect(() => {
     if (session) {
-      const req = async () => {
+      const fetchCartCount = async () => {
         const col = collection(db, "cart");
         const q = query(col, where("userId", "==", session.uid));
         const snapshot = await getDocs(q);
-<<<<<<< HEAD
         setCartCount(snapshot.size);
-=======
-        setCartCount (snapshot.size);
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
       };
-      req();
+      fetchCartCount();
     }
   }, [session, updateLayoutAllUi]);
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
+  // Handle logout
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -80,7 +55,7 @@ const LayoutAll = ({ children, updateLayoutAllUi }) => {
     { label: "Contact Us", Link: "/contact-us" },
   ];
 
-  const moblieLink = (href) => {
+  const mobileLink = (href) => {
     setOpen(false);
     navigate(href);
   };
@@ -107,24 +82,21 @@ const LayoutAll = ({ children, updateLayoutAllUi }) => {
               className="w-14 items-center"
               alt="Shopping"
             />
-<<<<<<< HEAD
             <h2 className="text-md font-bold">Shopping Club</h2>
-=======
-            <h2 className="text-md">Shopping Club</h2>
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
           </button>
 
-          {/* Mobile Nav Button */}
+          {/* Mobile Nav Toggle */}
           <button className="md:hidden" onClick={() => setOpen(!open)}>
             <i className="ri-menu-search-line text-3xl"></i>
           </button>
 
-          <div className="md:flex hidden gap-5">
+          {/* Desktop Menu */}
+          <div className="md:flex hidden gap-5 items-center">
             {Menus.map((item, index) => (
               <Link
                 key={index}
                 to={item.Link}
-                className="px-2 py-1 text-white p-4 hover:bg-rose-800 hover:text-white"
+                className="px-2 py-1 text-white hover:bg-rose-800 rounded transition duration-200"
               >
                 {item.label}
               </Link>
@@ -133,66 +105,45 @@ const LayoutAll = ({ children, updateLayoutAllUi }) => {
             {session && (
               <Link to="/cart" className="relative">
                 <i className="ri-shopping-cart-line text-xl"></i>
-                {typeof cartCount === "number" && (
-<<<<<<< HEAD
-                  <div className="absolute -top-2 -right-2 font-bold text-rose-600">
-                    {cartCount}
-                  </div>
-=======
-                  <div className="absolute -top-2 -right-2 font-bold text-rose-600">{cartCount}</div>
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
-                )}
+                <div className="absolute -top-2 -right-2 font-bold text-rose-600">
+                  {cartCount}
+                </div>
               </Link>
             )}
 
             {!session ? (
               <>
-<<<<<<< HEAD
                 <Link
                   to="/login"
-                  className="bg-pink-500 hover:bg-rose-800 px-6 py-2 font-semibold rounded"
+                  className="bg-pink-500 hover:bg-rose-800 px-6 py-2 font-semibold rounded text-white"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="bg-blue-500 px-6 py-2 hover:bg-rose-800 hover:text-white font-semibold rounded"
+                  className="bg-blue-500 hover:bg-rose-800 hover:text-white px-6 py-2 font-semibold rounded"
                 >
-=======
-                <Link to="/login" className="bg-pink-500 hover:bg-rose-800 px-6 py-2 font-semibold rounded">
-                  Login
-                </Link>
-                <Link to="/signup" className="bg-blue-500 px-6 py-2 hover:bg-rose-800 hover:text-white font-semibold rounded">
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                   Sign Up
                 </Link>
               </>
             ) : (
-<<<<<<< HEAD
               <button
                 onClick={() => setAccountMenu(!accountMenu)}
                 className="relative"
               >
-=======
-              <button onClick={() => setAccountMenu(!accountMenu)}>
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 <img
                   src="/img/avatar.png"
                   onError={(e) => (e.target.style.display = "none")}
                   className="w-10 h-10 rounded-full"
                   alt="Avatar"
                 />
-<<<<<<< HEAD
-                
-                {/* Admin Acces Here */}
 
+                {/* Dropdown Menu */}
                 {accountMenu && (
-                  <div className="flex flex-col w-32 h-30 shadow absolute top-[4rem] right-4 z-10 border animate__animated animate__headShake">
-
-
+                  <div className="flex flex-col w-32 bg-white rounded shadow absolute top-[4rem] right-4 z-10 border animate__animated animate__headShake">
                     <Link
                       to="/profile"
-                      className="hover:bg-gray-100 w-32  text-left py-2 px-1"
+                      className="hover:bg-gray-100 text-left py-2 px-1"
                     >
                       <i className="ri-profile-fill"></i> Admin Profile
                     </Link>
@@ -206,17 +157,6 @@ const LayoutAll = ({ children, updateLayoutAllUi }) => {
                       onClick={handleSignOut}
                       className="hover:bg-gray-100 text-left py-2 px-1"
                     >
-=======
-                {accountMenu && (
-                  <div className="flex flex-col w-28 h-30 shadow rounded bg-white absolute top-[4.2rem] right-16 z-10 border animate__animated animate__headShake">
-                    <Link to="/profile" className="hover:bg-gray-100 text-left py-2 px-1">
-                      <i className="ri-profile-fill"></i> My Profile
-                    </Link>
-                    <Link to="/cart" className="hover:bg-gray-100 text-left py-2 px-1">
-                      <i className="ri-shopping-cart-fill"></i> Cart
-                    </Link>
-                    <button onClick={handleSignOut} className="hover:bg-gray-100 text-left py-2 px-1">
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                       <i className="ri-logout-box-r-line"></i> Logout
                     </button>
                   </div>
@@ -229,30 +169,21 @@ const LayoutAll = ({ children, updateLayoutAllUi }) => {
 
       <div>{children || null}</div>
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
       {/* Mobile Sidebar */}
       <aside
-        className="overflow-hidden bg-slate-700 md:hidden h-96 z-50 fixed top-0 left-0"
+        className="overflow-hidden bg-slate-700 md:hidden h-96 z-50 fixed top-0 left-0 text-white"
         style={{
           width: open ? 110 : 0,
           transition: "0.4s",
         }}
       >
-        <div className="flex flex-col gap-3 py-24 text-white">
+        <div className="flex flex-col gap-3 py-24">
           {Menus.map((item, index) => (
-<<<<<<< HEAD
             <button
-              onClick={() => moblieLink(item.Link)}
-              className="text-white"
+              onClick={() => mobileLink(item.Link)}
+              className="text-left px-4 hover:text-rose-400"
               key={index}
             >
-=======
-            <button onClick={() => moblieLink(item.Link)} className="text-white" key={index}>
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
               {item.label}
             </button>
           ))}

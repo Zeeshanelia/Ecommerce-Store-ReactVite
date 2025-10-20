@@ -1,379 +1,98 @@
-<<<<<<< HEAD
+import { useState, useEffect } from "react";
+import Layout from "./Layout";
+import firebaseAppConfig from '../../util/firebase-config';
+import { getFirestore, getDocs, collection, updateDoc, doc } from "firebase/firestore";
+import Swal from "sweetalert2";
 
-import { useState, useEffect } from "react"
-import Layout from "./Layout"
-import firebaseAppConfig from '../../util/firebase-config'
-import { getFirestore, getDocs, collection, query, where, getDoc, updateDoc, doc } from "firebase/firestore"
-import Swal from "sweetalert2"
+const db = getFirestore(firebaseAppConfig);
 
-const db = getFirestore(firebaseAppConfig)
+const Orders = () => {
+  const [orders, setOrders] = useState([]);
 
-const Orders = ()=>{
-    const [orders, setOrders] = useState([])
+  useEffect(() => {
+    const fetchOrders = async () => {
+      const snapshot = await getDocs(collection(db, "orders"));
+      const tmp = [];
+      snapshot.forEach((docSnap) => {
+        const order = docSnap.data();
+        order.orderId = docSnap.id;
+        tmp.push(order);
+      });
+      setOrders(tmp);
+    };
+    fetchOrders();
+  }, []);
 
-    useEffect(()=>{
-        const req = async ()=>{
-            const snapshot = await getDocs(collection(db, 'orders'))
-            const tmp = []
-            snapshot.forEach(async (doc)=>{
-                const order = doc.data()
-                order.orderId = doc.id
-                tmp.push(order)
-            })
-            setOrders(tmp)
-        }
-        req()
-    }, [])
-
-    const updateOrderStatus = async (e, orderId)=>{
-        try {
-            const status = e.target.value
-            const ref = doc(db, "orders", orderId)
-            await updateDoc(ref, {status: status})
-            new Swal({
-                icon: 'success',
-                title: 'Order Status Updated !'
-            })
-        }
-        catch(err)
-        {
-            console.log(err)
-        }
+  const updateOrderStatus = async (e, orderId) => {
+    try {
+      const status = e.target.value;
+      const ref = doc(db, "orders", orderId);
+      await updateDoc(ref, { status });
+      Swal.fire({
+        icon: "success",
+        title: "Order status updated!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (err) {
+      console.error(err);
     }
+  };
 
-    return (
-        <Layout>
-            <div>
-                <h1 className="text-xl font-semibold">Orders</h1>
-                <div className="mt-6">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="bg-rose-600 text-white">
-                                <th className="py-4">Order Id</th>
-                                <th>Customer`s Name</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th>Product</th>
-                                <th>Amount</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
+  return (
+    <Layout>
+      <div>
+        <h1 className="text-xl font-semibold">Orders</h1>
+        <div className="mt-6">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-rose-600 text-white">
+                <th className="py-4">Order Id</th>
+                <th>Customer Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Product</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((item, index) => (
+                <tr
+                  className="text-center"
+                  key={index}
+                  style={{
+                    background: (index + 1) % 2 === 0 ? "#f1f5f9" : "white",
+                  }}
+                >
+                  <td className="py-4">{item.orderId}</td>
+                  <td className="capitalize">{item.customerName || "N/A"}</td>
+                  <td>{item.email || "N/A"}</td>
+                  <td>{item.phone || "N/A"}</td>
+                  <td className="capitalize">{item.title}</td>
+                  <td>₹{item.price?.toLocaleString() || 0}</td>
+                  <td>{item.date || "N/A"}</td>
+                  <td className="capitalize">
+                    <select
+                      className="border p-1 border-gray-200"
+                      defaultValue={item.status || "pending"}
+                      onChange={(e) => updateOrderStatus(e, item.orderId)}
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="processing">Processing</option>
+                      <option value="dispatched">Dispatched</option>
+                      <option value="returned">Returned</option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </Layout>
+  );
+};
 
-                        <tbody>
-                            {
-                                orders.map((item, index)=>(
-                                    <tr className="text-center" key={index} style={{
-                                        background: (index+1)%2 === 0 ? '#f1f5f9' : 'white'
-                                    }}>
-                                        <td className="py-4">{item.orderId}</td>
-                                        <td className="capitalize">er saurav</td>
-                                        <td>sfsdfsd</td>
-                                        <td>sfsda</td>
-                                        <td className="capitalize">{item.title}</td>
-                                        <td>₹{item.price.toLocaleString()}</td>
-                                        <td>sdsad</td>
-                                        <td className="capitalize">
-                                            <select className="border p-1 border-gray-200" onChange={(e)=>updateOrderStatus(e, item.orderId)}>
-                                                <option value="pending">Pending</option>
-                                                <option value="processing">Processing</option>
-                                                <option value="dispatched">Dispatched</option>
-                                                <option value="returned">Returned</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </Layout>
-    )
-}
-
-export default Orders
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { useState } from "react"
-// import Layout from "./Layout"
-
-// const Order = () => {
-//     const [Order, setOrder] = useState([{
-//         OrderId: '#!12345',
-//         CustomerName: 'Nadeem Danish',
-//         Email: 'Nadeem@yahoo.com',
-//         Mobile: '+123456789',
-//         Products: 'Printing Mug',
-//         Ammount: '2250',
-//         DateShipment: '101024',
-//         StatusOrder: 'Pening',
-//     },
-//     {
-//         OrderId: '#!12345',
-//         CustomerName: 'Nadeem Danish',
-//         Email: 'Nadeem@yahoo.com',
-//         Mobile: '+123456789',
-//         Products: 'Printing Mug',
-//         Ammount: '2250',
-//         DateShipment: '101024',
-//         StatusOrder: 'Pening',
-//     },
-//     {
-//         OrderId: '#!12345',
-//         CustomerName: 'Nadeem Danish',
-//         Email: 'Nadeem@yahoo.com',
-//         Mobile: '+123456789',
-//         Products: 'Printing Mug',
-//         Ammount: '2250',
-//         DateShipment: '101024',
-//         StatusOrder: 'Pening',
-//     },
-//     {
-//         OrderId: '#!12345',
-//         CustomerName: 'Nadeem Danish',
-//         Email: 'Nadeem@yahoo.com',
-//         Mobile: '+123456789',
-//         Products: 'Printing Mug',
-//         Ammount: '2250',
-//         DateShipment: '101024',
-//         StatusOrder: 'Pening',
-//     }
-//     ,
-//     {
-//         OrderId: '#!12345',
-//         CustomerName: 'Nadeem Danish',
-//         Email: 'Nadeem@yahoo.com',
-//         Mobile: '+123456789',
-//         Products: 'Printing Mug',
-//         Ammount: '2250',
-//         DateShipment: '101024',
-//         StatusOrder: 'Pening',
-//     },
-   
-//     {
-//         OrderId: '#!12345',
-//         CustomerName: 'Nadeem Danish',
-//         Email: 'Nadeem@yahoo.com',
-//         Mobile: '+123456789',
-//         Products: 'Printing Mug',
-//         Ammount: '2250',
-//         DateShipment: '101024',
-//         StatusOrder: 'Pening',
-//     },
-//     {
-//         OrderId: '#!12345',
-//         CustomerName: 'Nadeem Danish',
-//         Email: 'Nadeem@yahoo.com',
-//         Mobile: '+123456789',
-//         Products: 'Printing Mug',
-//         Ammount: '2250',
-//         DateShipment: '101024',
-//         StatusOrder: 'Pening',
-//     },
-    
-// ])
-//     return (
-//         <>
-//             <Layout>
-//                 <div>
-//                     <h1 className="text-xl font-semibold"> Orders </h1>
-//                     <div className="mt-2 ">
-//                         <table className="w-full">
-//                             <thead>
-//                                 <tr className="bg-rose-400 text-white">
-//                                     <th className="py-2">Order's iD</th>
-//                                     <th>Customer Name</th>
-//                                     <th>Email </th>
-//                                     <th>Mobile</th>
-//                                     <th>Product's</th>
-//                                     <th>Ammount</th>
-//                                     <th>Date Shipment</th>
-//                                     <th>Status Order</th>
-//                                 </tr>
-//                             </thead>
-
-//                             <tbody>
-//                                 {
-//                                     Order.map((item, index) => (
-//                                         <tr className="bg-white text-center" key={index}
-//                                         style={{ background : (index+1)%2 === 0 ? '#f1f5f9' : 'white'}}>
-//                                             <td className="py-2">{item.OrderId}</td>
-//                                             <td className="capitalize">{item.CustomerName}</td>
-//                                             <td>{item.Email}</td>
-//                                             <td>{item.Mobile}</td>
-//                                             <td className="capitalize">{item.Products}</td>
-//                                             <td> Rs. {item.Ammount.toLocaleString()} </td>
-//                                             <td>{item.DateShipment}</td>
-//                                             <td className="capitalize">
-//                                                 <select className="border border-sky-800">
-//                                                     <option value="pending"> Pending</option>
-//                                                     <option value="processing"> Processing</option>
-//                                                     <option value="dispatch"> Dispatch</option>
-//                                                     <option value="returned"> Returned </option>
-//                                                 </select>
-
-//                                             </td>
-//                                         </tr>
-//                                     ))}
-//                             </tbody>
-
-
-//                         </table>
-//                     </div>
-//                 </div>
-//             </Layout>
-//         </>
-//     )
-// }
-// export default Order
-=======
-import { useState } from "react"
-import Layout from "./Layout"
-
-const Order = () => {
-    const [Order, setOrder] = useState([{
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    }
-    ,
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-   
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    {
-        OrderId: '#!12345',
-        CustomerName: 'Nadeem Danish',
-        Email: 'Nadeem@yahoo.com',
-        Mobile: '+123456789',
-        Products: 'Printing Mug',
-        Ammount: '2250',
-        DateShipment: '101024',
-        StatusOrder: 'Pening',
-    },
-    
-])
-    return (
-        <>
-            <Layout>
-                <div>
-                    <h1 className="text-xl font-semibold"> Orders </h1>
-                    <div className="mt-2 ">
-                        <table className="w-full">
-                            <thead>
-                                <tr className="bg-rose-400 text-white">
-                                    <th className="py-2">Order's iD</th>
-                                    <th>Customer Name</th>
-                                    <th>Email </th>
-                                    <th>Mobile</th>
-                                    <th>Product's</th>
-                                    <th>Ammount</th>
-                                    <th>Date Shipment</th>
-                                    <th>Status Order</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {
-                                    Order.map((item, index) => (
-                                        <tr className="bg-white text-center" key={index}
-                                        style={{ background : (index+1)%2 === 0 ? '#f1f5f9' : 'white'}}>
-                                            <td className="py-2">{item.OrderId}</td>
-                                            <td className="capitalize">{item.CustomerName}</td>
-                                            <td>{item.Email}</td>
-                                            <td>{item.Mobile}</td>
-                                            <td className="capitalize">{item.Products}</td>
-                                            <td> Rs. {item.Ammount.toLocaleString()} </td>
-                                            <td>{item.DateShipment}</td>
-                                            <td className="capitalize">
-                                                <select className="border border-sky-800">
-                                                    <option value="pending"> Pending</option>
-                                                    <option value="processing"> Processing</option>
-                                                    <option value="dispatch"> Dispatch</option>
-                                                    <option value="returned"> Returned </option>
-                                                </select>
-
-                                            </td>
-                                        </tr>
-                                    ))}
-                            </tbody>
-
-
-                        </table>
-                    </div>
-                </div>
-            </Layout>
-        </>
-    )
-}
-export default Order
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
+export default Orders;

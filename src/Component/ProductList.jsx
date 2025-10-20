@@ -1,168 +1,72 @@
-<<<<<<< HEAD
-import LayoutAll from "./LayoutAll";
-import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
-
-=======
-import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
-// Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
-// Import Swiper styles
-import 'swiper/css';
-// import Swiper core and required modules
-import { Navigation, Pagination, Thumbs } from 'swiper/modules';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-<<<<<<< HEAD
-
-const ProductList = ({ children }) => {
-
-=======
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LayoutAll from "./LayoutAll";
 
+// Import Swiper components and styles (optional for future use)
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Navigation, Pagination, Thumbs } from "swiper/modules";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 const ProductList = ({ children }) => {
-    
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
+  const location = useLocation();
 
-    const Location = useLocation()
+  const Menus = [
+    { label: "Home", Link: "/" },
+    { label: "Products", Link: "/products" },
+    { label: "Category", Link: "/category" },
+    { label: "Contact Us", Link: "/" },
+    { label: "Login", Link: "/admin/auth" },
+  ];
 
-    const Menus = [
-        {
-            label: 'Home',
-            Link: '/'
-        },
+  const [Products, setProducts] = useState([
+    { title: "Arrival new article", price: 5000, discount: 15, Thumbnail: "/img/trouser1.jpeg" },
+    { title: "Arrival new article", price: 5000, discount: 15, Thumbnail: "/img/trouser2.jpeg" },
+    { title: "Arrival new article", price: 5000, discount: 15, Thumbnail: "/img/trouser3.jpeg" },
+    { title: "Arrival new article", price: 5000, discount: 15, Thumbnail: "/img/trouser4.jpeg" },
+    { title: "Arrival new article", price: 5000, discount: 15, Thumbnail: "/img/trouser5.jpeg" },
+    { title: "Arrival new article", price: 5000, discount: 15, Thumbnail: "/img/trouser6.jpeg" },
+  ]);
 
-        {
-            label: 'Products',
-            Link: '/products'
-        },
+  return (
+    <LayoutAll>
+      <div className="md:p-10 p-5">
+        <h1 className="text-center text-3xl font-semibold">All Items</h1>
+        <p className="md:w-7/12 mx-auto text-center mt-2 mb-8">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus vero beatae explicabo?
+          Maiores minima id eum, ut possimus consequatur laudantium explicabo quae! Omnis soluta iure aut facilis!
+        </p>
 
-
-        {
-            label: 'Category',
-            Link: '/category'
-        },
-        {
-            label: 'Contact Us',
-            Link: '/'
-        },
-        {
-            label: 'Login',
-            Link: '/admin/auth'
-        },
-
-    ]
-
-    const [Products, setProducts] = useState([
-        {
-            title: 'Arrival new article ',
-            price: '5000',
-            discount: '15',
-            Thumbnail: '/img/trouser1.jpeg',
-        },
-        {
-            title: 'Arrival new article ',
-            price: '5000',
-            discount: '15',
-            Thumbnail: '/img/trouser2.jpeg',
-        },
-        {
-            title: 'Arrival new article ',
-            price: '5000',
-            discount: '15',
-            Thumbnail: '/img/trouser3.jpeg',
-        },
-        {
-            title: 'Arrival new article ',
-            price: '5000',
-            discount: '15',
-            Thumbnail: '/img/trouser4.jpeg',
-        },
-        {
-            title: 'Arrival new article ',
-            price: '5000',
-            discount: '15',
-            Thumbnail: '/img/trouser5.jpeg',
-        },
-        {
-            title: 'Arrival new article ',
-            price: '5000',
-            discount: '15',
-            Thumbnail: '/img/trouser6.jpeg',
-        },
-    ])
-
-<<<<<<< HEAD
-
-    return (<>
-        <LayoutAll>
-
-
-            <div className="md:p-10  p-5">
-                <h1
-                    className="text-center text-3xl font-semibold"> All Items</h1>
-                <p className="md:w-7/12 mx-auto  text-center  mt-2 mb-8"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus vero beatae explicabo? Maiores minima id eum, ut possimus consequatur laudantium explicabo quae! Omnis soluta iure aut facilis! minima id eum, ut possimus consequatur Excepturi, quam sunt?
-                </p>
-                <div className="md:w-10/12   mx-auto  text-center grid md:grid-cols-5  gap-6 ">
-                    {Products.map((items, index) => (
-                        <div key={index} className="rounded  shadow-lg "> <img className="rounded md:w-full   shadow-lg md:h-64 mx-auto  w-56 h-60" src={items.Thumbnail} />
-                            <span className="text-xl text-center"> {items.title} </span>
-                            <div className="space-x-2">
-                                <label className="font-bold text-bold"> Rs.{items.price - (items.price * items.discount) / 100} </label>
-                                <del className="  text-red-400"> Rs.{items.price} </del>
-                                <label className="text-gray-500"> {items.discount}% off </label>
-                            </div>
-                            <button className="bg-green-400 rounded md:w-full  w-60 font-semibold"> Buy it</button>
-                            <button className="bg-pink-400 rounded md:w-full  w-60 font-semibold mt-1"> <i className="ri-shopping-cart-fill"></i> Add to Cart</button>
-                        </div>
-
-                    ))}
+        <div className="md:w-10/12 mx-auto text-center grid md:grid-cols-5 gap-6">
+          {Products.map((item, index) => {
+            const discountedPrice = item.price - (item.price * item.discount) / 100;
+            return (
+              <div key={index} className="rounded shadow-lg p-2 bg-white">
+                <img
+                  className="rounded md:w-full shadow-lg md:h-64 mx-auto w-56 h-60 object-cover"
+                  src={item.Thumbnail}
+                  alt={item.title}
+                />
+                <span className="block text-xl mt-2 font-semibold">{item.title}</span>
+                <div className="space-x-2 mt-1">
+                  <label className="font-bold text-bold">Rs.{discountedPrice}</label>
+                  <del className="text-red-400">Rs.{item.price}</del>
+                  <label className="text-gray-500">{item.discount}% off</label>
                 </div>
-
-            </div>
-
-
-
-
-        </LayoutAll>
-=======
-    
-    return (<>
-       <LayoutAll> 
-
-
-        <div className="md:p-10  p-5">
-            <h1
-                className="text-center text-3xl font-semibold"> All Items</h1>
-            <p className="md:w-7/12 mx-auto  text-center  mt-2 mb-8"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus vero beatae explicabo? Maiores minima id eum, ut possimus consequatur laudantium explicabo quae! Omnis soluta iure aut facilis! minima id eum, ut possimus consequatur Excepturi, quam sunt?
-            </p>
-            <div className="md:w-10/12   mx-auto  text-center grid md:grid-cols-5  gap-6 ">
-                {Products.map((items, index) => (
-                    <div key={index} className="rounded  shadow-lg "> <img className="rounded md:w-full   shadow-lg md:h-64 mx-auto  w-56 h-60" src={items.Thumbnail} />
-                        <span className="text-xl text-center"> {items.title} </span>
-                        <div className="space-x-2">
-                            <label className="font-bold text-bold"> Rs.{items.price - (items.price * items.discount) / 100} </label>
-                            <del className="  text-red-400"> Rs.{items.price} </del>
-                            <label className="text-gray-500"> {items.discount}% off </label>
-                        </div>
-                        <button className="bg-green-400 rounded md:w-full  w-60 font-semibold"> Buy it</button>
-                        <button className="bg-pink-400 rounded md:w-full  w-60 font-semibold mt-1"> <i className="ri-shopping-cart-fill"></i> Add to Cart</button>
-                    </div>
-
-))}
-            </div>
-
+                <button className="bg-green-400 rounded md:w-full w-60 font-semibold mt-2 p-2">
+                  Buy it
+                </button>
+                <button className="bg-pink-400 rounded md:w-full w-60 font-semibold mt-1 p-2">
+                  <i className="ri-shopping-cart-fill"></i> Add to Cart
+                </button>
+              </div>
+            );
+          })}
         </div>
+      </div>
+    </LayoutAll>
+  );
+};
 
-
-       
-
-</LayoutAll>
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
-
-    </>)
-}
-
-export default ProductList
+export default ProductList;

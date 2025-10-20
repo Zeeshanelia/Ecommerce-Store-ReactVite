@@ -1,36 +1,29 @@
-<<<<<<< HEAD
-import { Outlet } from 'react-router-dom';
-=======
-
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
+import { Outlet } from "react-router-dom";
 
 const Admin = () => {
+  return (
+    <>
+      <div className="bg-gray-100 h-screen flex justify-center items-center">
+        <img src="/img/Admin (2).svg" className="w-80 h-80" alt="Admin Illustration" />
 
-    return (
-        <>
-<<<<<<< HEAD
-            <div className="bg-gray-100  flex justify-center items-center">
-                <img src="/img/Admin (2).svg" className="w-20 border-2 " />
-=======
-            <div className="bg-gray-100 h-screen flex justify-center items-center">
-                <img src="/img/Admin (2).svg" className="w-80 h-80" />
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
-                
-                
-                <div >
-                    <h2 className="mb-4 font-semibold text-4xl">  wellcom admin sb  </h2>
-                    <form className="flex flex-col">
-                        <input type="text" className="w-[450px] border p-4 bg-white rounded-md"
-                            placeholder="Admin Secret" />
-                            <button className="p-4 bg-violet-500 w-fit rounded-md mt-4 "> Access Now </button>
-                    </form>
-<<<<<<< HEAD
+        <div className="ml-6">
+          <h2 className="mb-4 font-semibold text-4xl">Welcome Admin</h2>
+          <form className="flex flex-col">
+            <input
+              type="text"
+              className="w-[450px] border p-4 bg-white rounded-md"
+              placeholder="Admin Secret"
+            />
+            <button className="p-4 bg-violet-500 text-white font-semibold w-fit rounded-md mt-4 hover:bg-violet-600">
+              Access Now
+            </button>
+          </form>
+        </div>
+      </div>
 
-=======
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
-                </div>
-            </div>
-        </>
-    )
-}
-export default Admin
+      <Outlet />
+    </>
+  );
+};
+
+export default Admin;

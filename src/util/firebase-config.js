@@ -1,17 +1,7 @@
 // Import the functions you need from the SDKs you need
-<<<<<<< HEAD
 import { initializeApp, getApps } from "firebase/app";
 
 // Your web app's Firebase configuration
-=======
-import { initializeApp } from "firebase/app";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 const firebaseConfig = {
   apiKey: "AIzaSyDzYZcowv5m2yYaYix719S2GVulDG85qN0",
   authDomain: "shoping-club0.firebaseapp.com",
@@ -22,24 +12,18 @@ const firebaseConfig = {
   measurementId: "G-MN14JZG15E"
 };
 
-<<<<<<< HEAD
-//  Default User App
+//  Initialize the default app only once
 const appConfig =
   getApps().find((a) => a.name === "[DEFAULT]") ||
   initializeApp(firebaseConfig);
 
-//  Separate Admin App Instance
+//  Create a separate Admin App instance (optional)
 const adminAppConfig =
   getApps().find((a) => a.name === "adminApp") ||
   initializeApp(firebaseConfig, "adminApp");
 
+//  Export both apps for use elsewhere
 export { appConfig, adminAppConfig };
 
-//  Add this line to fix your import error
+//  Default export (so you can `import appConfig from "../util/firebase-config"`)
 export default appConfig;
-=======
-// Initialize Firebase
-const appConfig = initializeApp(firebaseConfig);
-export default appConfig
-
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d

@@ -1,58 +1,35 @@
-<<<<<<< HEAD
-import LayoutAll from './LayoutAll';
-import { useState } from 'react';
-=======
-import { useState } from 'react';
-import LayoutAll from './LayoutAll';
->>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
+import { useState } from "react";
+import LayoutAll from "./LayoutAll";
 
 const Category = () => {
-    const [category, setCategory] = useState([
-        {
-            title: 'Pharmacy'
-        },
-        {
-            title: 'Furnitures'
-        },
-        {
-            title: 'Men`s'
-        },
+  const [category, setCategory] = useState([
+    { title: "Pharmacy" },
+    { title: "Furnitures" },
+    { title: "Men`s" },
+    { title: "Baby Toys" },
+    { title: "Women`s" },
+    { title: "Electronics" },
+    { title: "Fashion" },
+    { title: "Smartphones" },
+  ]);
 
-        {
-            title: 'Baby Toys '
-        },
-        {
-            title: 'Women`s'
-        },
-        {
-            title: 'Electronics'
-        },
-        {
-            title: 'Fashion'
-        },
-        {
-            title: 'Smartphones'
-        },
-
-
-    ]);
-
-    console.log(category)
-    return (
-        <LayoutAll>
-
-            <div className='md:p-16 p-8'>
-                <div className='md:w-10/12 mx-auto grid md:grid-cols-4 md:gap-16 gap-8'>
-                    {category.map((item, index) => (
-                        <div key={index} className='hover:bg-orange-900 hover:text-white border rounded-lg bg-white shadow-lg flex flex-col p-8 justify-center items-center'>
-                            <i className="ri-menu-search-line text-6xl"></i>
-                            <h1 className='text-2xl font-bold'>{item.title}</h1>
-                        </div>
-                    ))}
-                </div>
+  return (
+    <LayoutAll>
+      <div className="md:p-16 p-8">
+        <div className="md:w-10/12 mx-auto grid md:grid-cols-4 md:gap-16 gap-8">
+          {category.map((item, index) => (
+            <div
+              key={index}
+              className="hover:bg-orange-900 hover:text-white border rounded-lg bg-white shadow-lg flex flex-col p-8 justify-center items-center transition-all duration-300 ease-in-out"
+            >
+              <i className="ri-menu-search-line text-6xl"></i>
+              <h1 className="text-2xl font-bold">{item.title}</h1>
             </div>
-        </LayoutAll>
-    );
+          ))}
+        </div>
+      </div>
+    </LayoutAll>
+  );
 };
 
 export default Category;
