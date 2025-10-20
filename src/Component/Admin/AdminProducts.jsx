@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react"
 import Layout from "./Layout"
 import firebaseAppConfig from '../../util/firebase-config'
+<<<<<<< HEAD
 import { getFirestore, addDoc, collection, getDocs,  updateDoc, doc, deleteDoc } from "firebase/firestore"
+=======
+import { getFirestore, addDoc, collection, getDocs, getDoc, updateDoc, doc } from "firebase/firestore"
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 import Swal from "sweetalert2"
 // import uploadFile from "../../util/"
 
 const db = getFirestore(firebaseAppConfig)
 
+<<<<<<< HEAD
 const Products = ()=>{
     const [updateUi, setUpdateUi] = useState(false)
     const [products, setProducts] = useState([])
     const [isSubmitting, setIsSubmitting] = useState(false)
+=======
+const AdminProducts = ()=>{
+    const [updateUi, setUpdateUi] = useState(false)
+    const [products, setProducts] = useState([])
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
     const model = {
         title: '',
         description: '',
@@ -20,7 +30,10 @@ const Products = ()=>{
     const [productForm, setProductForm] = useState(model)
     const [productModal, setProductModal] = useState(false)
     const [applyCloseAnimation, setApplyCloseAnimation] = useState(false)
+<<<<<<< HEAD
     const [edit, setEdit] = useState(null)
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 
     useEffect(()=>{
         const req = async ()=>{
@@ -40,16 +53,22 @@ const Products = ()=>{
         setApplyCloseAnimation(true)
         setTimeout(()=>{
             setProductModal(false)
+<<<<<<< HEAD
             setEdit(null)
             setProductForm(model)
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
         }, 700)
     }
 
     const handleModalOpen = ()=>{
         setApplyCloseAnimation(false)
         setProductModal(true)
+<<<<<<< HEAD
         setEdit(null)
         setProductForm(model)
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
     }
 
     const handleProductForm = (e)=>{
@@ -65,45 +84,64 @@ const Products = ()=>{
     const createProduct = async (e)=>{
         try {
             e.preventDefault()
+<<<<<<< HEAD
             
             // Prevent double submission
             if (isSubmitting) return;
             
             setIsSubmitting(true)
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
             await addDoc(collection(db, "products"), productForm)
             setProductForm(model)
             handleModalClose()
             setUpdateUi(!updateUi)
+<<<<<<< HEAD
             Swal.fire({
+=======
+            new Swal({
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 icon: 'success',
                 title: 'Product Added'
             })
         }
         catch(err)
         {
+<<<<<<< HEAD
             Swal.fire({
+=======
+            new Swal({
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 icon: 'error',
                 title: 'Failed !',
                 text: err.message
             })
         }
+<<<<<<< HEAD
         finally {
             setIsSubmitting(false)
         }
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
     }
 
     const uploadProductImage = async (e, id)=>{
         const input = e.target
         const file = input.files[0]
+<<<<<<< HEAD
         if (!file) return;
         
         const path = `products/${Date.now()}.png`
+=======
+        const path = `products/${Date.now()}.jpg`
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
         const url = await uploadFile(file, path)
         const ref = doc(db, "products", id)
         await updateDoc(ref, {image: url})
         setUpdateUi(!updateUi)
     }
 
+<<<<<<< HEAD
     const deleteProduct = async (id)=>{
         try {
             const result = await Swal.fire({
@@ -182,6 +220,14 @@ const Products = ()=>{
                 <div className="">
                     <h1 className="text-xl font-semibold mb-2"> Click The Button. You Can Add Products Here.. </h1>
                     <button className=" items-center bg-indigo-600 text-white rounded py-2 px-4" onClick={handleModalOpen}>
+=======
+    return (
+        <Layout>
+            <div>
+                <div className="flex justify-between items-center">
+                    <h1 className="text-xl font-semibold mb-4">Products</h1>
+                    <button className="bg-indigo-600 text-white rounded py-2 px-4" onClick={handleModalOpen}>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                         <i className="ri-sticky-note-add-line mr-2"></i>
                         New Product
                     </button>
@@ -194,7 +240,10 @@ const Products = ()=>{
                                     <img 
                                         src={item.image ? item.image : "/images/pt.jpg"}
                                         className="rounded-t-md w-full h-[270px] object-cover"
+<<<<<<< HEAD
                                         alt={item.title}
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                                     />
                                     <input 
                                         onChange={(e)=>uploadProductImage(e, item.id)}
@@ -203,6 +252,7 @@ const Products = ()=>{
                                     />
                                 </div>
                                 <div className="p-4">
+<<<<<<< HEAD
                                     <div className="flex items-center justify-between">
                                         <h1 className="font-semibold text-lg capitalize">{item.title}</h1>
                                         <div className="space-x-2">
@@ -217,6 +267,12 @@ const Products = ()=>{
                                     <div className="flex gap-2 mt-1">
                                         <label>Rs: {item.price-(item.price*item.discount)/100}</label>
                                         <del className="font-semibold">Rs {item.price}</del>
+=======
+                                    <h1 className="font-semibold text-lg capitalize">{item.title}</h1>
+                                    <div className="flex gap-2 mt-1">
+                                        <label>RS{item.price-(item.price*item.discount)/100}</label>
+                                        <del className="font-semibold">RS{item.price}</del>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                                         <label className="text-gray-600">({item.discount}% Off)</label>
                                     </div>
                                 </div>
@@ -226,6 +282,7 @@ const Products = ()=>{
                 </div>
                 {
                     productModal && 
+<<<<<<< HEAD
                     <div className={`animate__animated ${applyCloseAnimation ? 'animate__fadeOut' : 'animate__fadeIn'} bg-black bg-opacity-80 fixed top-0 left-0 w-full h-full flex justify-center items-center z-50`}>
                         <div className={`animate__animated ${applyCloseAnimation ? 'animate__zoomOut' : 'animate__zoomIn'} animate__faster bg-white w-5/12 py-5 px-6 mt-8 rounded-md border border-1 relative`}>
                             <button type="button" className="absolute top-4 right-3" onClick={handleModalClose}>
@@ -233,6 +290,16 @@ const Products = ()=>{
                             </button>
                             <h1 className="text-lg font-semibold">{edit ? 'Edit Product' : 'New Product'}</h1>
                             <form className="grid grid-cols-2 gap-6 " onSubmit={edit ? saveData : createProduct}>
+=======
+                    <div className={`animate__animated ${applyCloseAnimation ? 'animate__fadeOut' : 'animate__fadeIn'} bg-black bg-opacity-80 absolute top-0 left-0 w-full h-full flex justify-center items-center`}>
+                        
+                        <div className={`animate__animated ${applyCloseAnimation ? 'animate__zoomOut' : 'animate__zoomIn'} animate__faster bg-white w-5/12 py-5 px-6 rounded-md border border-1 relative`}>
+                            <button className="absolute top-2 right-3" onClick={handleModalClose}>
+                                <i className="ri-close-line text-lg"></i>
+                            </button>
+                            <h1 className="text-lg font-semibold">New Product</h1>
+                            <form className="grid grid-cols-2 gap-6 mt-4" onSubmit={createProduct}>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                                 <input
                                     required 
                                     name="title"
@@ -266,13 +333,18 @@ const Products = ()=>{
                                     required
                                     name="description"
                                     placeholder="Description"
+<<<<<<< HEAD
                                     className=" border border-gray-300 rounded col-span-2"
+=======
+                                    className="p-2 border border-gray-300 rounded col-span-2"
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                                     rows={8}
                                     onChange={handleProductForm}
                                     value={productForm.description}
                                 />
                                 
                                 <div>
+<<<<<<< HEAD
                                     <button 
                                         type="submit" 
                                         className="bg-indigo-600 text-white rounded px-4 py-1 disabled:opacity-50"
@@ -280,6 +352,9 @@ const Products = ()=>{
                                     >
                                         {isSubmitting ? 'Submitting...' : (edit ? 'Update' : 'Submit')}
                                     </button>
+=======
+                                    <button className="bg-indigo-600 text-white rounded px-4 py-2">Submit</button>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                                 </div>
                             </form>
                         </div>
@@ -290,6 +365,7 @@ const Products = ()=>{
     )
 }
 
+<<<<<<< HEAD
 export default Products
 
 
@@ -666,3 +742,8 @@ export default Products
 // }
 
 // export default AdminProducts
+=======
+export default AdminProducts
+
+
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d

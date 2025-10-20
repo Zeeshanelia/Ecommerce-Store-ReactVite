@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import LayoutAll from "./LayoutAll";
 import { useState } from "react";
+=======
+import React, { useState } from "react";
+import LayoutAll from "./LayoutAll";
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 import { Link, useNavigate } from "react-router-dom";
 import appConfig from "../util/firebase-config";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -59,6 +64,7 @@ const SignUp = () => {
 
     return (
         <LayoutAll>
+<<<<<<< HEAD
             <div className="grid grid-cols-1 md:grid-cols-2 md:h-screen justify-center border-2">
                 <img src="/img/sign-up.jpg" className="md:w-[25rem] mx-auto md:mt-8" alt="Sign Up" />
 
@@ -68,6 +74,16 @@ const SignUp = () => {
                     <p className="text-gray-500 text-center md:text-left">Create Account And Start Shopping</p>
 
                     <form className="md:mt-4 space-y-4" onSubmit={handleSignUp}>
+=======
+            <div className="grid grid-cols-1 md:grid-cols-2 md:h-screen justify-center items-center mx-4 lg:mx-16">
+                <img src="/img/sign-up.jpg" className="w-full h-auto max-w-md mx-auto mb-8 md:mb-0" alt="Sign Up" />
+
+                <div className="flex flex-col md:mt-8 mb-1 sm:items-center">
+                    <h1 className="font-bold text-2xl md:text-3xl">New User</h1>
+                    <p className="text-gray-500 text-center md:text-left">Create Id & Start Shopping</p>
+
+                    <form className="mt-8 space-y-4" onSubmit={handleSignUp}>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                         <div className="flex flex-col">
                             <label className="font-semibold mb-1">Full Name</label>
                             <input

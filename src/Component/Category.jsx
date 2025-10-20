@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import LayoutAll from './LayoutAll';
 import { useState } from 'react';
+=======
+import { useState } from 'react';
+import LayoutAll from './LayoutAll';
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 
 const Category = () => {
     const [category, setCategory] = useState([

@@ -1,16 +1,27 @@
+<<<<<<< HEAD
 import Layout from './Layout'
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 import { useEffect, useState } from 'react'
 import firebaseAppConfig from '../../util/firebase-config'
 import { onAuthStateChanged, getAuth, updateProfile } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { getFirestore, addDoc, collection, getDocs, query, where, updateDoc, doc } from 'firebase/firestore'
+<<<<<<< HEAD
+=======
+import Layout from './Layout'
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 import Swal from 'sweetalert2'
 import uploadFile from '../../util/firebase-config'
 
 const auth = getAuth(firebaseAppConfig)
 const db = getFirestore(firebaseAppConfig)
 
+<<<<<<< HEAD
 const Profile = () => {
+=======
+const Profile = ()=>{
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
     const [orders, setOrders] = useState([])
     const [uploading, setUploading] = useState(false)
     const navigate = useNavigate()
@@ -34,9 +45,16 @@ const Profile = () => {
         mobile: ''
     })
 
+<<<<<<< HEAD
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
+=======
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user)=>{
+            if(user)
+            {
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 setSession(user)
             }
             else {
@@ -46,28 +64,50 @@ const Profile = () => {
         })
     }, [])
 
+<<<<<<< HEAD
     useEffect(() => {
         const req = async () => {
             if (session) {
+=======
+    useEffect(()=>{
+        const req = async ()=>{
+            if(session)
+            {
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 setFormValue({
                     ...formValue,
                     fullname: session.displayName,
                     mobile: (session.phoneNumber ? session.phoneNumber : '')
                 })
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 setAddressForm({
                     ...addressForm,
                     userId: session.uid
                 })
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 // fetch address
                 const col = collection(db, "addresses")
                 const q = query(col, where("userId", "==", session.uid))
                 const snapshot = await getDocs(q)
+<<<<<<< HEAD
 
                 setIsAddress(!snapshot.empty)
 
                 snapshot.forEach((doc) => {
+=======
+                
+                setIsAddress(!snapshot.empty)
+
+                snapshot.forEach((doc)=>{
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                     setDocId(doc.id)
                     const address = doc.data()
                     setAddressForm({
@@ -80,14 +120,25 @@ const Profile = () => {
         req()
     }, [session, isUpdated])
 
+<<<<<<< HEAD
     useEffect(() => {
         const req = async () => {
             if (session) {
+=======
+    useEffect(()=>{
+        const req = async ()=>{
+            if(session)
+            {
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 const col = collection(db, "orders")
                 const q = query(col, where("userId", "==", session.uid))
                 const snapshot = await getDocs(q)
                 const tmp = []
+<<<<<<< HEAD
                 snapshot.forEach((doc) => {
+=======
+                snapshot.forEach((doc)=>{
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                     tmp.push(doc.data())
                 })
                 setOrders(tmp)
@@ -97,6 +148,7 @@ const Profile = () => {
         req()
     }, [session])
 
+<<<<<<< HEAD
     const setProfilePicture = async (e) => {
         const input = e.target
         const file = input.files[0]
@@ -107,6 +159,18 @@ const Profile = () => {
         setUploading(true)
         const url = await uploadFile(file, path)
         await updateProfile(auth.currentUser, {
+=======
+    const setProfilePicture = async (e)=>{
+        const input = e.target
+        const file = input.files[0]
+        const filenameArray = file.name.split(".")
+        const ext = filenameArray[filenameArray.length-1]
+        const filename = Date.now()+'.'+ext
+        const path = `pictures/${filename}`
+        setUploading(true)
+        const url = await uploadFile(file, path)
+        await updateProfile(auth.currentUser,{
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
             photoURL: url
         })
         setUploading(false)
@@ -116,7 +180,11 @@ const Profile = () => {
         })
     }
 
+<<<<<<< HEAD
     const handleFormValue = (e) => {
+=======
+    const handleFormValue = (e)=>{
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
         const input = e.target
         const name = input.name
         const value = input.value
@@ -126,9 +194,15 @@ const Profile = () => {
         })
     }
 
+<<<<<<< HEAD
     const saveProfileInfo = async (e) => {
         e.preventDefault()
 
+=======
+    const saveProfileInfo = async (e)=>{
+        e.preventDefault()
+        
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
         await updateProfile(auth.currentUser, {
             displayName: formValue.fullname,
             phoneNumber: formValue.mobile
@@ -139,7 +213,11 @@ const Profile = () => {
         })
     }
 
+<<<<<<< HEAD
     const setAddress = async (e) => {
+=======
+    const setAddress = async (e)=>{
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
         try {
             e.preventDefault()
             await addDoc(collection(db, "addresses"), addressForm)
@@ -150,7 +228,12 @@ const Profile = () => {
                 title: 'Address Saved !'
             })
         }
+<<<<<<< HEAD
         catch (err) {
+=======
+        catch(err)
+        {
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
             new Swal({
                 icon: 'error',
                 title: 'Failed !',
@@ -159,7 +242,11 @@ const Profile = () => {
         }
     }
 
+<<<<<<< HEAD
     const updateAddress = async (e) => {
+=======
+    const updateAddress = async (e)=>{
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
         try {
             e.preventDefault()
             const ref = doc(db, "addresses", docId)
@@ -169,7 +256,12 @@ const Profile = () => {
                 title: 'Address Updated !'
             })
         }
+<<<<<<< HEAD
         catch (err) {
+=======
+        catch(err)
+        {
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
             new Swal({
                 icon: 'error',
                 title: 'Failed !',
@@ -178,7 +270,11 @@ const Profile = () => {
         }
     }
 
+<<<<<<< HEAD
     const handleAddressForm = (e) => {
+=======
+    const handleAddressForm = (e)=>{
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
         const input = e.target
         const name = input.name
         const value = input.value
@@ -188,6 +284,7 @@ const Profile = () => {
         })
     }
 
+<<<<<<< HEAD
     const getStatusColor = (status) => {
         if (status === "processing")
             return "bg-blue-600"
@@ -221,6 +318,39 @@ const Profile = () => {
             <div className=' mx-auto md:my-16 shadow-lg rounded-md p-8 md:w-7/12 border'>
 
 
+=======
+    const getStatusColor = (status)=>{
+        if(status === "processing")
+            return "bg-blue-600"
+
+        else if(status === "pending")
+            return "bg-indigo-600"
+
+        else if(status === "dispatched")
+            return "bg-rose-600"
+
+        else if(status === "returned")
+            return "bg-orange-600"
+
+        else 
+            return "bg-cyan-600"
+    }
+
+    if(session === null)
+    return (
+        <div className="bg-gray-100 min-h-full fixed top-0 left-0 w-full flex justify-center items-center">
+            <span className="relative flex h-6 w-6">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-6 w-6 bg-sky-500"></span>
+            </span>
+        </div>
+    )
+    
+
+    return (
+        <Layout>
+            <div className='bg-white mx-auto md:my-16 shadow-lg rounded-md p-8 md:w-7/12 border'>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 <div className='flex gap-3'>
                     <i className="ri-shopping-cart-line text-4xl"></i>
                     <h1 className="text-3xl font-semibold">Orders</h1>
@@ -229,15 +359,26 @@ const Profile = () => {
                 <hr className='my-6' />
 
                 {
+<<<<<<< HEAD
                     orders.map((item, index) => (
+=======
+                    orders.map((item, index)=>(
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                         <div className='flex gap-3 mb-8' key={index}>
                             <img src={item.image} className='w-[100px]' />
                             <div>
                                 <h1 className='capitalize font-semibold text-lg'>{item.title}</h1>
+<<<<<<< HEAD
                                 <p className='text-gray-600'>{item.description.slice(0, 50)}</p>
                                 <div className='space-x-2'>
                                     <label className='font-bold text-lg'>
                                         ₹{item.price - (item.price * item.discount) / 100}
+=======
+                                <p className='text-gray-600'>{item.description.slice(0,50)}</p>
+                                <div className='space-x-2'>
+                                    <label className='font-bold text-lg'>
+                                    ₹{item.price-(item.price*item.discount)/100}
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                                     </label>
                                     <del>₹{item.price}</del>
                                     <label>({item.discount} Off)%</label>
@@ -260,6 +401,7 @@ const Profile = () => {
                 <hr className='my-6' />
 
                 <div className='w-24 h-24 mx-auto relative mb-6'>
+<<<<<<< HEAD
                    
                     {
                     
@@ -267,6 +409,13 @@ const Profile = () => {
                             <img src="/img/avtman.png" />
                             :
                             <img src={session.photoURL ? session.photoURL : "/img/avatar.png"} className='rounded-full w-24 h-24' />
+=======
+                    {
+                        uploading ? 
+                        <img src="/images/loader.gif" />
+                        :
+                        <img src={session.photoURL ? session.photoURL : "/images/avt.avif"} className='rounded-full w-24 h-24'/>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                     }
                     <input type="file" accept="image/*" className='opacity-0 absolute top-0 left-0 w-full h-full' onChange={setProfilePicture} />
                 </div>
@@ -275,7 +424,11 @@ const Profile = () => {
                     <div className='flex flex-col gap-2'>
                         <label className='text-lg font-semibold'>Fullname</label>
 
+<<<<<<< HEAD
                         <input
+=======
+                        <input 
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                             onChange={handleFormValue}
                             required
                             name="fullname"
@@ -286,7 +439,11 @@ const Profile = () => {
 
                     <div className='flex flex-col gap-2'>
                         <label className='text-lg font-semibold'>Email</label>
+<<<<<<< HEAD
                         <input
+=======
+                        <input 
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                             disabled
                             onChange={handleFormValue}
                             required
@@ -299,10 +456,17 @@ const Profile = () => {
 
                     <div />
                     <div className='col-span-2'>
+<<<<<<< HEAD
                         <button className='px-4 py-2 bg-rose-600 text-white rounded w-fit hover:bg-green-600'>
                             <i className="ri-save-line mr-2"></i>
                             Save
                         </button>
+=======
+                    <button className='px-4 py-2 bg-rose-600 text-white rounded w-fit hover:bg-green-600'>
+                        <i className="ri-save-line mr-2"></i>
+                        Save
+                    </button>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                     </div>
                 </form>
             </div>
@@ -319,7 +483,11 @@ const Profile = () => {
                     <div className='flex flex-col gap-2 col-span-2'>
                         <label className='text-lg font-semibold'>Area/Street/Vill</label>
                         <input
+<<<<<<< HEAD
                             onChange={handleAddressForm}
+=======
+                            onChange={handleAddressForm} 
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                             required
                             name="address"
                             type="text"
@@ -330,8 +498,13 @@ const Profile = () => {
 
                     <div className='flex flex-col gap-2'>
                         <label className='text-lg font-semibold'>City</label>
+<<<<<<< HEAD
                         <input
                             onChange={handleAddressForm}
+=======
+                        <input 
+                            onChange={handleAddressForm} 
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                             required
                             name="city"
                             type="text"
@@ -342,8 +515,13 @@ const Profile = () => {
 
                     <div className='flex flex-col gap-2'>
                         <label className='text-lg font-semibold'>State</label>
+<<<<<<< HEAD
                         <input
                             onChange={handleAddressForm}
+=======
+                        <input 
+                            onChange={handleAddressForm} 
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                             required
                             name="state"
                             type="text"
@@ -354,8 +532,13 @@ const Profile = () => {
 
                     <div className='flex flex-col gap-2'>
                         <label className='text-lg font-semibold'>Country</label>
+<<<<<<< HEAD
                         <input
                             onChange={handleAddressForm}
+=======
+                        <input 
+                            onChange={handleAddressForm} 
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                             required
                             name="country"
                             type="text"
@@ -366,8 +549,13 @@ const Profile = () => {
 
                     <div className='flex flex-col gap-2'>
                         <label className='text-lg font-semibold'>Pincode</label>
+<<<<<<< HEAD
                         <input
                             onChange={handleAddressForm}
+=======
+                        <input 
+                            onChange={handleAddressForm} 
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                             required
                             name="pincode"
                             type="number"
@@ -378,7 +566,11 @@ const Profile = () => {
 
                     <div className='flex flex-col gap-2' id="address">
                         <label className='text-lg font-semibold'>Mobile</label>
+<<<<<<< HEAD
                         <input
+=======
+                        <input 
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                             onChange={handleAddressForm}
                             required
                             name="mobile"
@@ -388,6 +580,7 @@ const Profile = () => {
                         />
                     </div>
                     <div className='col-span-2'>
+<<<<<<< HEAD
                         {
                             isAddress ?
                                 <button className='px-4 py-2 bg-rose-600 text-white rounded w-fit hover:bg-green-600'>
@@ -402,6 +595,22 @@ const Profile = () => {
                         }
 
                     </div>
+=======
+                    {
+                        isAddress ? 
+                        <button className='px-4 py-2 bg-rose-600 text-white rounded w-fit hover:bg-green-600'>
+                            <i className="ri-save-line mr-2"></i>
+                            Save
+                        </button>
+                        :
+                        <button className='px-4 py-2 bg-green-500 text-white rounded w-fit hover:bg-green-600'>
+                            <i className="ri-save-line mr-2"></i>
+                            Submit
+                        </button>
+                    }
+
+</div>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 </form>
             </div>
         </Layout>

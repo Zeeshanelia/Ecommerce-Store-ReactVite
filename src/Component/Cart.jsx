@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import LayoutAll from "./LayoutAll";
 import { useState, useEffect } from "react";
 import firebaseAppConfig from "../util/firebase-config";
@@ -343,6 +344,134 @@ export default Cart;
 // export default Cart
 
 
+=======
+import { useState } from "react"
+import LayoutAll from "./LayoutAll"
+import { useEffect } from "react"
+import firebaseAppConfig from "../util/firebase-config";
+import { getAuth, onAuthStateChanged, } from "firebase/auth";
+import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
+
+
+
+
+const auth = getAuth(firebaseAppConfig)
+const db = getFirestore(firebaseAppConfig);
+
+// const firebaseConfig = {
+//     apiKey  : "AIzaSyD-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+//     authDomain: "your-project-id.firebaseapp.com",          
+//     projectId: "your-project-id",
+//     storageBucket: "your-project-id.appspot.com",
+//     messagingSenderId: "xxxxxxxxxxxx",
+//     appId: "1:xxxxxxxxxxxx:web:xxxxxxxxxxxxxxxxxxxx",
+//     measurementId: "G-XXXXXXXXXX"
+// };
+
+const Cart = () => {
+    const [products, setProducts] = useState([
+        {
+            title: 'trosur fresh article',
+            price: 20000,
+            discount: 15,
+            image: '/img/trouser24.jpeg'
+        },
+        {
+            title: 'trosur fresh article',
+            price: 20000,
+            discount: 15,
+            image: '/img/trouser25.jpeg'
+        },
+
+        {
+            title: 'trosur fresh article',
+            price: 20000,
+            discount: 15,
+            image: '/img/trouser26.jpeg'
+        }
+    ])
+
+
+    // Add more products as needed
+
+
+    const [session, setSession] = useState(null)
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setSession(user)
+            }
+            else {
+                setSession(null)
+            }
+        })
+    }, [])
+    useEffect(() => {
+        const fetchCartItems = async () => {
+            if (session) {
+                const cartQuery = query(
+                    collection(db, 'cart'),
+                    where('userId', '==', session.uid)
+                );
+                const querySnapshot = await getDocs(cartQuery);
+                const cartItems = [];
+                querySnapshot.forEach((doc) => {
+                    cartItems.push(doc.data());
+                });
+                setProducts(cartItems);
+            }
+        }
+        fetchCartItems();
+
+    }, [])
+    return (
+        <LayoutAll>
+            <div className="md:my-16 mx-auto md:w-7/12 bg-white shadow-lg border rounded-md p-8">
+                <div className="flex items-center gap-4">
+                    <i className="ri-shopping-cart-line text-4xl"></i>
+                    <h1 className="text-3xl font-semibold">Cart</h1>
+                </div>
+                <hr className="my-6" />
+                <div className="space-y-12">
+                    {
+                        products.map((item, index) => (
+                            <div key={index} className="flex gap-4">
+                                <img src={item.image} className="w-[100px] border border-3 border-white shadow" />
+                                <div>
+                                    <h1 className="font-semibold capitalize text-lg">{item.title}</h1>
+                                    <div className="flex flex-col gap-4">
+                                        <div className="space-x-3">
+                                            <label className="text-lg font-semibold">Rs:{item.price - (item.price * item.discount) / 100}</label>
+                                            <del>Rs:{item.price}</del>
+                                            <label className="text-gray-500">{item.discount}% Discount</label>
+                                        </div>
+                                        <button className="w-fit bg-rose-600 text-white px-4 py-2 rounded">
+                                            <i className="ri-delete-bin-line mr-2"></i>
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <hr className="my-6" />
+                <div className="flex justify-between items-center">
+                    <h1 className="font-semibold text-2xl">Total : Rs 57,000</h1>
+                    <button className="bg-green-500 text-white px-12 py-3 rounded mt-4 font-semibold hover:bg-rose-600">
+                        <i className="ri-shopping-bag-4-line mr-2"></i>
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+        </LayoutAll>
+    )
+}
+
+export default Cart
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 
 
 

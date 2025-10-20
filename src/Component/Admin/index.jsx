@@ -1,11 +1,20 @@
+<<<<<<< HEAD
 import { Outlet } from 'react-router-dom';
+=======
+
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 
 const Admin = () => {
 
     return (
         <>
+<<<<<<< HEAD
             <div className="bg-gray-100  flex justify-center items-center">
                 <img src="/img/Admin (2).svg" className="w-20 border-2 " />
+=======
+            <div className="bg-gray-100 h-screen flex justify-center items-center">
+                <img src="/img/Admin (2).svg" className="w-80 h-80" />
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 
                 
                 <div >
@@ -15,7 +24,10 @@ const Admin = () => {
                             placeholder="Admin Secret" />
                             <button className="p-4 bg-violet-500 w-fit rounded-md mt-4 "> Access Now </button>
                     </form>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 </div>
             </div>
         </>

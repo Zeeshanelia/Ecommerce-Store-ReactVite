@@ -3,7 +3,11 @@ import firebaseAppConfig from '../util/firebase-config'
 import { onAuthStateChanged, getAuth, updateProfile } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { getFirestore, addDoc, collection, getDocs, query, where, updateDoc, doc } from 'firebase/firestore'
+<<<<<<< HEAD
 import Layout from './Admin/Layout'
+=======
+import LayoutAll from "./LayoutAll"
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 import Swal from 'sweetalert2'
 import uploadFile from '../util/firebase-config'
 
@@ -399,13 +403,17 @@ const Profile = ()=>{
                             Submit
                         </button>
                     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
                 </form>
             </div>
         </Layout>
     )
 }
+<<<<<<< HEAD
 
 export default Profile
 
@@ -663,10 +671,48 @@ export default Profile
 //         const value = input.value
 //         setAddressForm({
 //             ...addressForm,
+=======
+export default Profile
+
+
+// import LayoutAll from "./LayoutAll"
+// import { useEffect, useState } from "react"
+// import { getAuth, onAuthStateChanged } from "firebase/auth"
+// import appConfig from "../util/firebase-config"
+// import { useNavigate } from "react-router-dom"
+
+// const auth = getAuth(appConfig)
+
+// const Profile = () => {
+//     const [session, setSession] = useState(null)
+//     const [formVal, setFormVal] = useState({
+//         fullname: "",
+//         email: "",
+//         mobile: "",
+        
+//     })
+//     const [addressVal, setAddressVal] = useState({
+//         area: "",   
+//         city: "",
+//         state: "",
+//         country: "",
+//         pincode: ""
+//     })
+   
+//     const navigate = useNavigate()
+
+//     const HandleOnChange = (e) => {
+//         const input = e.target
+//         const name = input.name
+//         const value = input.value
+//         setFormVal({
+//             ...formVal,
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 //             [name]: value
 //         })
 //     }
 
+<<<<<<< HEAD
 //     const getStatusColor = (status)=>{
 //         if(status === "processing")
 //             return "bg-blue-600"
@@ -730,6 +776,60 @@ export default Profile
 //                 }
 //             </div>
 
+=======
+//      const HandlePicChange = (e) => {
+//         const input = e.target
+//         const file = input.files[0] //db storage property is 'files'
+//         console.log(file)
+//     }
+
+//     const SaveAdress = (e) => {
+//         e.preventDefault()
+//         const { fullname, email, mobile } = formVal
+//         const { area, city, state, country, pincode } = addressVal
+//         console.log("User Details: ", fullname, email, mobile)
+//         console.log("Address Details: ", area, city, state, country, pincode)
+//         // Here you can add the logic to save the data to your database or perform any other action
+//     }
+
+    
+//     const HandleAddressVal = (e) => {
+//         const input = e.target
+//         const name = input.name
+//         const value = input.value
+//         setAddressVal({
+//             ...addressVal,
+//             [name]: value
+//         })
+//     }
+
+
+//     useEffect(() => {
+//         onAuthStateChanged(auth, (user) => {
+//             if (user) {
+//                 setSession(user)
+//             } else {
+//                 setSession(false)
+//                 navigate("/login")
+//             }
+//         })
+//     }, [navigate])
+
+//     // Show loading spinner until session is determined (while loading)
+//     if (session === null) {
+//         return (
+//             <div className="bg-gray-100 h-full fixed top-0 left-0 w-full flex justify-center items-center">
+//                 <span className="relative flex h-6 w-6">
+//                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+//                     <span className="relative inline-flex rounded-full h-6 w-6 bg-sky-500"></span>
+//                 </span>
+//             </div>
+//         );
+//     }
+
+//     return (
+//         <LayoutAll>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 //             <div className='mx-auto md:my-16 shadow-lg rounded-md p-8 md:w-7/12 border'>
 //                 <div className='flex gap-3'>
 //                     <i className="ri-user-line text-4xl"></i>
@@ -738,6 +838,7 @@ export default Profile
 
 //                 <hr className='my-6' />
 
+<<<<<<< HEAD
 //                 <div className='w-24 h-24 mx-auto relative mb-6'>
 //                     {
 //                         uploading ? 
@@ -758,42 +859,142 @@ export default Profile
 //                             name="fullname"
 //                             className='p-2 rounded border border-gray-300'
 //                             value={formValue.fullname}
+=======
+//                 <div className='w-24 h-24 mx-auto relative mb-2'>
+//                     <img src="/img/avatar.png" className="rounded-full w-24 h-24" />
+//                     <input type="file" accept="image/*" className='opacity-0 absolute top-0 left-0 w-full h-full' onChange={HandlePicChange}/>
+//                 </div>
+
+//                 <form className='grid grid-cols-2 gap-6' onSubmit={SaveAdress}>
+//                     <div className='flex flex-col gap-2'>
+//                         <label className='text-lg font-semibold'>Fullname</label>
+//                         <input
+//                             onChange={HandleOnChange}
+//                             required
+//                             name="fullname"
+//                             className='p-2 rounded border border-gray-300'
+//                             value={session?.displayName || ''}
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 //                         />
 //                     </div>
 
 //                     <div className='flex flex-col gap-2'>
 //                         <label className='text-lg font-semibold'>Email</label>
+<<<<<<< HEAD
 //                         <input 
 //                             disabled
 //                             onChange={handleFormValue}
+=======
+//                         <input
+//                             onChange={HandleOnChange}
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 //                             required
 //                             name="email"
 //                             type="email"
 //                             className='p-2 rounded border border-gray-300'
+<<<<<<< HEAD
 //                             value={session.email}
+=======
+//                             value={session?.email || ''}
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 //                         />
 //                     </div>
 
 //                     <div className='flex flex-col gap-2'>
 //                         <label className='text-lg font-semibold'>Mobile</label>
+<<<<<<< HEAD
 //                         <input 
 //                             onChange={handleFormValue}
+=======
+//                         <input
+//                             onChange={HandleOnChange}
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 //                             required
 //                             name="mobile"
 //                             type="number"
 //                             className='p-2 rounded border border-gray-300'
+<<<<<<< HEAD
 //                             value={formValue.mobile}
 //                         />
 //                     </div>
 
 //                     <div />
 
+=======
+//                             value={formVal.mobile}
+//                         />
+//                     </div>
+//                     <div />
+
+
+
+//                     <div className='flex flex-col gap-2 col-span-2'>
+//                         <label className='text-lg font-semibold'>Area/Street/Vill</label>
+//                         <input
+//                             onChange={HandleAddressVal}
+//                             required
+//                             name="address"
+//                             type="text"
+//                             className='p-2 rounded border border-gray-300'
+//                            // value={formVal.adress}
+//                         />
+//                     </div>
+
+//                     <div className='flex flex-col gap-2'>
+//                         <label className='text-lg font-semibold'>City</label>
+//                         <input
+//                             onChange={HandleAddressVal}
+//                             required
+//                             name="city"
+//                             type="text"
+//                             className='p-2 rounded border border-gray-300'
+//                             //value={formVal.city}
+//                         />
+//                     </div>
+
+//                     <div className='flex flex-col gap-2'>
+//                         <label className='text-lg font-semibold'>State</label>
+//                         <input
+//                             onChange={HandleAddressVal}
+//                             required
+//                             name="state"
+//                             type="text"
+//                             className='p-2 rounded border border-gray-300'
+//                            // value={formVal.state}
+//                         />
+//                     </div>
+
+//                     <div className='flex flex-col gap-2'>
+//                         <label className='text-lg font-semibold'>Country</label>
+//                         <input
+//                             onChange={HandleAddressVal}
+//                             required
+//                             name="country"
+//                             type="text"
+//                             className='p-2 rounded border border-gray-300'
+//                             //value={formVal.country}
+//                         />
+//                     </div>
+
+//                     <div className='flex flex-col gap-2'>
+//                         <label className='text-lg font-semibold'>Pincode</label>
+//                         <input
+//                             onChange={HandleAddressVal}
+//                             required
+//                             name="pincode"
+//                             type="number"
+//                             className='p-2 rounded border border-gray-300'
+//                             //value={formVal.pincode}
+//                         />
+//                     </div>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 //                     <button className='px-4 py-2 bg-rose-600 text-white rounded w-fit hover:bg-green-600'>
 //                         <i className="ri-save-line mr-2"></i>
 //                         Save
 //                     </button>
 //                 </form>
 //             </div>
+<<<<<<< HEAD
 
 //             <div className='mx-auto md:my-16 shadow-lg rounded-md p-8 md:w-7/12 border'>
 //                 <div className='flex gap-3'>
@@ -1094,3 +1295,10 @@ export default Profile
 // // }
 
 // // export default Profile
+=======
+//         </LayoutAll>
+//     )
+// }
+
+// export default Profile
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d

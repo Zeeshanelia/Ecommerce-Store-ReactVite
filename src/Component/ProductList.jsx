@@ -1,16 +1,30 @@
+<<<<<<< HEAD
 import LayoutAll from "./LayoutAll";
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 
+=======
+import { useState } from "react"
+import { Link, useLocation } from "react-router-dom"
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 // Import Swiper styles
 import 'swiper/css';
 // import Swiper core and required modules
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+<<<<<<< HEAD
 
 const ProductList = ({ children }) => {
 
+=======
+import LayoutAll from "./LayoutAll";
+
+const ProductList = ({ children }) => {
+    
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 
     const Location = useLocation()
 
@@ -80,6 +94,7 @@ const ProductList = ({ children }) => {
         },
     ])
 
+<<<<<<< HEAD
 
     return (<>
         <LayoutAll>
@@ -112,6 +127,40 @@ const ProductList = ({ children }) => {
 
 
         </LayoutAll>
+=======
+    
+    return (<>
+       <LayoutAll> 
+
+
+        <div className="md:p-10  p-5">
+            <h1
+                className="text-center text-3xl font-semibold"> All Items</h1>
+            <p className="md:w-7/12 mx-auto  text-center  mt-2 mb-8"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus vero beatae explicabo? Maiores minima id eum, ut possimus consequatur laudantium explicabo quae! Omnis soluta iure aut facilis! minima id eum, ut possimus consequatur Excepturi, quam sunt?
+            </p>
+            <div className="md:w-10/12   mx-auto  text-center grid md:grid-cols-5  gap-6 ">
+                {Products.map((items, index) => (
+                    <div key={index} className="rounded  shadow-lg "> <img className="rounded md:w-full   shadow-lg md:h-64 mx-auto  w-56 h-60" src={items.Thumbnail} />
+                        <span className="text-xl text-center"> {items.title} </span>
+                        <div className="space-x-2">
+                            <label className="font-bold text-bold"> Rs.{items.price - (items.price * items.discount) / 100} </label>
+                            <del className="  text-red-400"> Rs.{items.price} </del>
+                            <label className="text-gray-500"> {items.discount}% off </label>
+                        </div>
+                        <button className="bg-green-400 rounded md:w-full  w-60 font-semibold"> Buy it</button>
+                        <button className="bg-pink-400 rounded md:w-full  w-60 font-semibold mt-1"> <i className="ri-shopping-cart-fill"></i> Add to Cart</button>
+                    </div>
+
+))}
+            </div>
+
+        </div>
+
+
+       
+
+</LayoutAll>
+>>>>>>> 43360bff556c7beeeac6c9aab57f55638a3d1a5d
 
     </>)
 }
