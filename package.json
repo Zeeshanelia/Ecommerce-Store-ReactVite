@@ -3,13 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-  "postinstall": "chmod +x node_modules/.bin/vite || true",
+ "scripts": {
   "dev": "vite",
   "build": "vite build",
-  "lint": "eslint .",
-  "preview": "vite preview"
+  "preview": "vite preview",
+  "postinstall": "npm rebuild rollup --force"
+
 }
+
 ,
   "dependencies": {
     "@stripe/react-stripe-js": "^5.2.0",
